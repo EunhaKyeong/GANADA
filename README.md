@@ -2,7 +2,7 @@
 다문화 가정 아이들을 위한 AI 기반 한글 교육 모바일 어플리케이션 '가나다'  
 <br><br>
 
-## 아이콘 출처
+## [아이콘 출처](https://github.com/EunhaKyeong/GANADA/tree/eunha/app/src/main/res/drawable)
 <br>
 
 1. <div>아이콘 제작자 <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/kr/" title="Flaticon">www.flaticon.com</a></div>
