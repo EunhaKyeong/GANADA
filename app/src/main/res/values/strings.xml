@@ -1,20 +1,46 @@
 <resources>
     <string name="app_name">가나다</string>
+
     <string name="select_language">언어 선택</string>
     <string name="english">English</string>
     <string name="chinese_cn">中国人</string>
     <string name="vietnam_vn">Việt Nam</string>
     <string name="japan_jp">日本語</string>
     <string name="setting_up">설정하기</string>
+
     <string name="take_picture_kr">이미지/텍스트 촬영</string>
     <string name="take_picture_en">(image/text shooting)</string>
+    <string name="take_picture_cn">(图像/文字拍摄)</string>
+    <string name="take_picture_vn">(Chụp ảnh/văn bản)</string>
+    <string name="take_picture_jp">(画像/テキスト撮影)</string>
+
     <string name="vocabulary_kr">단어장</string>
     <string name="vocabulary_en">(voca note)</string>
+    <string name="vocabulary_cn">(词汇)</string>
+    <string name="vocabulary_vn">(ngữ vựng)</string>
+    <string name="vocabulary_jp">(言葉)</string>
+
     <string name="setting_kr">설정</string>
     <string name="setting_en">(setting)</string>
+    <string name="setting_cn">(设置)</string>
+    <string name="setting_vn">(Cài đặt)</string>
+    <string name="setting_jp">(設定)</string>
+
     <string name="take_photo_alert_kr">사진 촬영 시\n하나의 물체만 찍어주세요.</string>
+    <string name="take_photo_alert_en">(When taking pictures, please take only one object.)</string>
+    <string name="take_photo_alert_cn">(拍照时，请只拍摄一个物体.)</string>
+    <string name="take_photo_alert_vn">(Khi chụp ảnh, vui lòng chỉ chụp một đối tượng.)</string>
+    <string name="take_photo_alert_jp">(写真を撮るときは、1つの物体を撮ってください.)</string>
+
     <string name="object_recognition_kr">사진 찍기</string>
     <string name="object_recognition_en">(object\nrecognition)</string>
+    <string name="object_recognition_cn">(照片拍摄)</string>
+    <string name="object_recognition_vn">(Chụp ảnh)</string>
+    <string name="object_recognition_jp">(写真を撮る)</string>
+
     <string name="text_recognition_kr">글자 찍기</string>
     <string name="text_recognition_en">(text\nrecognition)</string>
+    <string name="text_recognition_cn">(文字拍摄)</string>
+    <string name="text_recognition_vn">(nhận dạng văn bản)</string>
+    <string name="text_recognition_jp">(テキスト認識)</string>
 </resources>
