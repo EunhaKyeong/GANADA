@@ -120,7 +120,7 @@
         app:layout_constraintTop_toTopOf="@+id/vocabulary_view" />
 
     <TextView
-        android:id="@+id/object_recognition_tv"
+        android:id="@+id/voca_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -133,16 +133,16 @@
         app:layout_constraintTop_toBottomOf="@+id/object_recognition_iv" />
 
     <TextView
-        android:id="@+id/object_recognition_tv_other_language"
+        android:id="@+id/voca_other_language_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/vocabulary_en"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/object_recognition_tv"
-        app:layout_constraintStart_toStartOf="@+id/object_recognition_tv"
-        app:layout_constraintTop_toBottomOf="@+id/object_recognition_tv" />
+        app:layout_constraintEnd_toEndOf="@+id/voca_tv"
+        app:layout_constraintStart_toStartOf="@+id/voca_tv"
+        app:layout_constraintTop_toBottomOf="@+id/voca_tv" />
 
     <View
         android:id="@+id/text_recognition_view"
@@ -166,7 +166,7 @@
         app:layout_constraintTop_toTopOf="@+id/text_recognition_view" />
 
     <TextView
-        android:id="@+id/text_recognition_tv_kr"
+        android:id="@+id/setting_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -179,15 +179,15 @@
         app:layout_constraintTop_toBottomOf="@+id/text_recognition_iv" />
 
     <TextView
-        android:id="@+id/text_recognition_tv_other_language"
+        android:id="@+id/setting_other_language_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/setting_en"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/text_recognition_tv_kr"
-        app:layout_constraintStart_toStartOf="@+id/text_recognition_tv_kr"
-        app:layout_constraintTop_toBottomOf="@+id/text_recognition_tv_kr" />
+        app:layout_constraintEnd_toEndOf="@+id/setting_tv"
+        app:layout_constraintStart_toStartOf="@+id/setting_tv"
+        app:layout_constraintTop_toBottomOf="@+id/setting_tv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
