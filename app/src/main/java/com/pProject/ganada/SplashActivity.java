@@ -16,6 +16,7 @@ public class SplashActivity extends AppCompatActivity {
         startLoading();
     }
 
+    //2초 대기하다 언어 선택 화면으로 넘어간다.
     private void startLoading() {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

@@ -16,6 +16,7 @@ public class SelectLanguageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_language);
 
+        //설정하기 버튼 클릭 리스너 -> MainActivity로 이동
         settingUpBtn = (Button) findViewById(R.id.setting_up_btn);
         settingUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
