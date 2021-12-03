@@ -8,10 +8,14 @@ import android.os.Handler;
 
 public class SplashActivity extends AppCompatActivity {
 
+    private String language;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        language = getSharedPreferences("Language", MODE_PRIVATE).getString("language", null);
 
         startLoading();
     }
@@ -22,7 +26,10 @@ public class SplashActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(getApplicationContext(), SelectLanguageActivity.class));
+                if (language == null)   //선택된 언어가 없으면 SelectLanguageActivity 화면으로 이동
+                    startActivity(new Intent(getApplicationContext(), SelectLanguageActivity.class));
+                else    //선택된 언어가 있으면 MainActivity 화면으로 이동
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
         }, 2000);
     }
