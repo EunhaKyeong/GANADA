@@ -7,11 +7,11 @@
     tools:context=".CameraActivity">
 
     <ImageButton
-        android:id="@+id/camera_capture_button"
+        android:id="@+id/camera_capture_btn"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginBottom="50dp"
-        android:background="@drawable/camera_capture_button_view"
+        android:background="@drawable/camera_capture_btn_view"
         android:elevation="2dp"
         android:padding="16dp"
         android:scaleType="fitCenter"
