@@ -67,11 +67,11 @@
         android:id="@+id/vietnam_iv"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="100dp"
         android:src="@drawable/vietnam_icon"
         app:layout_constraintEnd_toStartOf="@+id/japan_iv"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/english_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/unite_states_iv" />
 
     <TextView
         android:id="@+id/vietnam_tv"
@@ -112,7 +112,7 @@
         android:layout_width="230dp"
         android:layout_height="70dp"
         android:layout_marginBottom="80dp"
-        android:backgroundTint="@color/yellow"
+        android:backgroundTint="@color/light_yellow"
         android:text="@string/setting_up"
         android:textColor="@color/black"
         android:textSize="24sp"
