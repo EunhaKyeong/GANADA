@@ -13,7 +13,8 @@
     - vietnam_icon.png
     - ic_camera.png
     - ic_text.png
-    - ic_vocanote.png
+    - ic_vocanote.png  
+    - object_icon.png  
 
 <br>
 
