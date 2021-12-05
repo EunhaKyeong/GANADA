@@ -18,8 +18,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private TextView takePictureTv, vocaTv, settingTv;
-    private View takePictureView;
-
+    private View takePictureView, settingView, vocabularyView;
     private Dialog dialog;
     private String language;
 
@@ -27,12 +26,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //sharedPreferences 에서 선택된 언어 가져오기
-        language = getSharedPreferences("Language", MODE_PRIVATE).getString("language", null);
-
-        setLanguageUI(language);    //선택된 언어에 맞춰 TextView 의 텍스트를 설정하는 함수 호출
-
 
         //이미지/텍스트 촬영 클릭 리스너 -> 물체 인식인지 텍스트 인식인지 클릭하는 다이얼로그 띄우기
         takePictureView = (View) findViewById(R.id.take_picture_view);
@@ -42,6 +35,33 @@ public class MainActivity extends AppCompatActivity {
                 startDialog();
             }
         });
+
+        //설정 클릭 리스너 -> SettingActivity 화면으로 이동
+        settingView = (View) findViewById(R.id.setting_view);
+        settingView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startSettingActivity();
+            }
+        });
+
+        //단어장 클릭 리스너 -> VocaBookActivity 화면으로 이동
+        vocabularyView = (View) findViewById(R.id.vocabulary_view);
+        vocabularyView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startVocaBookActivity();
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //sharedPreferences 에서 선택된 언어 가져오기
+        language = getSharedPreferences("Language", MODE_PRIVATE).getString("language", null);
+        setLanguageUI(language);    //선택된 언어에 맞춰 TextView 의 텍스트를 설정하는 함수 호출
     }
 
     //카메라 사용권한 콜백 함수
@@ -56,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         }
         dialog.dismiss();   //다이얼로그 닫기
     }
-    
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -183,5 +203,13 @@ public class MainActivity extends AppCompatActivity {
             return true;
         else
             return false;
+    }
+
+    private void startSettingActivity() {
+        startActivity(new Intent(this, SettingActivity.class));
+    }
+
+    private void startVocaBookActivity() {
+        startActivity(new Intent(this, VocaBookActivity.class));
     }
 }

@@ -163,7 +163,7 @@ public class ChangeLanguageActivity extends AppCompatActivity {
             editor.putString("language", language);
             editor.commit();
 
-            goMainActivity();
+            finish();
         }
     }
 
