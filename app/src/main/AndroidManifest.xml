@@ -6,9 +6,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher_ganada"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_ganada_round"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ganada">
         <activity
@@ -29,9 +29,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="true" />
+        <activity android:name=".ChangeLanguageActivity" />
+        <activity android:name=".InfoActivity" />
+        <activity android:name=".LearnWordActivity" />
+        <activity android:name=".PracticeWordActivity" />
+        <activity android:name=".SettingActivity" />
+        <activity android:name=".VocaBookActivity" />
+        <activity android:name=".VocaDetailActivity" />
     </application>
 
 </manifest>
