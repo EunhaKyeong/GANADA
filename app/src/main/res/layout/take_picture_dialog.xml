@@ -60,7 +60,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="32dp"
-        android:src="@drawable/ic_image"
+        android:src="@drawable/object_icon"
         app:layout_constraintEnd_toEndOf="@+id/object_recognition_view"
         app:layout_constraintStart_toStartOf="@+id/object_recognition_view"
         app:layout_constraintTop_toTopOf="@+id/object_recognition_view" />

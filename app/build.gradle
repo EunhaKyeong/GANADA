@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'kotlin-android'
 }
 
 android {
@@ -13,6 +14,10 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    dataBinding {
+        enabled = true
     }
 
     buildTypes {
@@ -40,6 +45,9 @@ dependencies {
     implementation "androidx.camera:camera-lifecycle:$camerax_version"
     // CameraX View class
     implementation "androidx.camera:camera-view:1.0.0-alpha27"
+
+    //TedImagePicker
+    implementation 'io.github.ParkSangGwon:tedimagepicker:1.2.7'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

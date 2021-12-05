@@ -84,4 +84,16 @@
     <string name="text_recognition_cn">(文字拍摄)</string>
     <string name="text_recognition_vn">(nhận dạng văn bản)</string>
     <string name="text_recognition_jp">(テキスト認識)</string>
+
+    <string name="using_camera_kr">사진 촬영하기</string>
+    <string name="using_camera_en">(taking pictures)</string>
+    <string name="using_camera_cn">(正在拍照)</string>
+    <string name="using_camera_vn">(chụp ảnh)</string>
+    <string name="using_camera_jp">(写真を撮る)</string>
+
+    <string name="using_gallery_kr">앨범에서\n가져오기</string>
+    <string name="using_gallery_en">(import from photo album)</string>
+    <string name="using_gallery_cn">(从相册导入)</string>
+    <string name="using_gallery_vn">(nhập từ album ảnh)</string>
+    <string name="using_gallery_jp">(フォトアルバムからインポート)</string>
 </resources>
