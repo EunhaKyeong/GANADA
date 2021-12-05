@@ -1,6 +1,8 @@
 package com.pProject.ganada;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,15 +24,24 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        //툴바 설정
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
 
+        //상태바 설정
+        View view = getWindow().getDecorView();
+        if(view != null) {
+            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setStatusBarColor(Color.parseColor("#FFF2CC"));
+        }
+
         change_language = (ConstraintLayout) findViewById(R.id.change_language);
         information = (ConstraintLayout) findViewById(R.id.information);
 
+        //언어 변경 페이지로 이동
         change_language.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -38,6 +49,7 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+        //정보 페이지로 이동
         information.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

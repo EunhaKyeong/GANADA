@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -50,7 +51,7 @@ public class PracticeWordActivity extends AppCompatActivity {
         protected void onDraw(Canvas canvas) {
             Paint p = new Paint();
             p.setStyle(Paint.Style.STROKE);
-            p.setStrokeWidth(15);
+            p.setStrokeWidth(25);
             for(int i=1; i<points.size(); i++) {
                 p.setColor(points.get(i).color);
                 if(!points.get(i).check){
@@ -145,11 +146,19 @@ public class PracticeWordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_practice_word);
 
+        //툴바 설정
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
+
+        //상태바 설정
+        View view = getWindow().getDecorView();
+        if(view != null) {
+            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setStatusBarColor(Color.parseColor("#FFF2CC"));
+        }
 
         final MyView m = new MyView(this);
 

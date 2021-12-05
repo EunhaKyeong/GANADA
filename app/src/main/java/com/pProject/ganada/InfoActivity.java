@@ -1,6 +1,8 @@
 package com.pProject.ganada;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,12 +22,20 @@ public class InfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
+        //상태바 설정
+        View view = getWindow().getDecorView();
+        if(view != null) {
+            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setStatusBarColor(Color.parseColor("#80FFF2CC"));
+        }
+
         btn_back = (ImageButton) findViewById(R.id.btn_back);
 
         //sharedPreferences 에서 선택된 언어 가져오기
         language = getSharedPreferences("Language", MODE_PRIVATE).getString("language", null);
         setLanguageUI(language);    //선택된 언어에 맞춰 TextView 의 텍스트를 설정하는 함수 호출
 
+        //뒤로가기 버튼
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
