@@ -129,7 +129,7 @@ public class ChangeLanguageActivity extends AppCompatActivity {
     //선택된 언어에 맞춰 TextView 의 텍스트를 설정하는 함수
     private void setLanguageUI(String language) {
 
-        lang_change_foreign = (TextView) findViewById(R.id.practice_foreign);
+        lang_change_foreign = (TextView) findViewById(R.id.lang_change_foreign);
 
         switch (language) {
             case "english":
@@ -162,16 +162,16 @@ public class ChangeLanguageActivity extends AppCompatActivity {
             editor.putString("language", language);
             editor.commit();
 
-            goMainActivity();
+            finish();
         }
     }
 
     //언어가 선택될 때마다 텍스트뷰 검정, 디폴트 스타일, 사이트 20sp로 초기화하는 함수
     private void initUI() {
-//        englishTv.setTextColor(getColor(R.color.black));
-//        chineseTv.setTextColor(getColor(R.color.black));
-//        vietnamTv.setTextColor(getColor(R.color.black));
-//        japanTv.setTextColor(getColor(R.color.black));
+        englishTv.setTextColor(getColor(R.color.black));
+        chineseTv.setTextColor(getColor(R.color.black));
+        vietnamTv.setTextColor(getColor(R.color.black));
+        japanTv.setTextColor(getColor(R.color.black));
 
         englishTv.setTypeface(Typeface.DEFAULT);
         chineseTv.setTypeface(Typeface.DEFAULT);
@@ -188,22 +188,22 @@ public class ChangeLanguageActivity extends AppCompatActivity {
     private void changeTvStyle(String language) {
         switch (language) {
             case "english":
-//                englishTv.setTextColor(getColor(R.color.yellow));
+                englishTv.setTextColor(getColor(R.color.yellow));
                 englishTv.setTypeface(Typeface.DEFAULT_BOLD);
                 englishTv.setTextSize(Dimension.SP, 24);
                 break;
             case "china":
-//                chineseTv.setTextColor(getColor(R.color.yellow));
+                chineseTv.setTextColor(getColor(R.color.yellow));
                 chineseTv.setTypeface(Typeface.DEFAULT_BOLD);
                 chineseTv.setTextSize(Dimension.SP, 24);
                 break;
             case "vietnam":
-//                vietnamTv.setTextColor(getColor(R.color.yellow));
+                vietnamTv.setTextColor(getColor(R.color.yellow));
                 vietnamTv.setTypeface(Typeface.DEFAULT_BOLD);
                 vietnamTv.setTextSize(Dimension.SP, 24);
                 break;
             default:
-//                japanTv.setTextColor(getColor(R.color.yellow));
+                japanTv.setTextColor(getColor(R.color.yellow));
                 japanTv.setTypeface(Typeface.DEFAULT_BOLD);
                 japanTv.setTextSize(Dimension.SP, 24);
                 break;
