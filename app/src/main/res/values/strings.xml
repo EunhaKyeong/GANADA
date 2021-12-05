@@ -1,3 +1,77 @@
 <resources>
-    <string name="app_name">Ganada</string>
+    <string name="app_name">가나다</string>
+    <string name="team_name">©P-1</string>
+
+    <string name="select_language">언어 선택</string>
+    <string name="english">English</string>
+    <string name="chinese_cn">中国人</string>
+    <string name="vietnam_vn">Việt Nam</string>
+    <string name="japan_jp">日本語</string>
+    <string name="setting_up">설정하기</string>
+
+    <string name="learn_word_kr">단어 학습</string>
+    <string name="learn_word_en">(learning word)</string>
+    <string name="learn_word_cn">(单词学习)</string>
+    <string name="learn_word_vn">(học từ vựng)</string>
+    <string name="learn_word_jp">(単語学習)</string>
+
+    <string name="practice_kr">따라쓰기</string>
+    <string name="practice_en">(copy and write)</string>
+    <string name="practice_cn">(抄写)</string>
+    <string name="practice_vn">(viết theo)</string>
+    <string name="practice_jp">(書き写し)</string>
+
+    <string name="vocabulary_kr">단어장</string>
+    <string name="vocabulary_en">(voca note)</string>
+    <string name="vocabulary_cn">(词汇)</string>
+    <string name="vocabulary_vn">(ngữ vựng)</string>
+    <string name="vocabulary_jp">(言葉)</string>
+
+    <string name="setting_kr">설정</string>
+    <string name="setting_en">(setting)</string>
+    <string name="setting_cn">(设置)</string>
+    <string name="setting_vn">(Cài đặt)</string>
+    <string name="setting_jp">(設定)</string>
+
+    <string name="change_language_kr">언어 변경</string>
+    <string name="change_language_en">(change language)</string>
+    <string name="change_language_cn">(语言变更)</string>
+    <string name="change_language_vn">(thay đổi ngôn ngữ)</string>
+    <string name="change_language_jp">(言語変更)</string>
+
+    <string name="information_kr">정보</string>
+    <string name="information_en">(information)</string>
+    <string name="information_cn">(信息)</string>
+    <string name="information_vn">(thông tin)</string>
+    <string name="information_jp">(情報)</string>
+
+    <string name="information_detail_kr">다문화가정 아동을 위한\n한글 교육 모바일 앱</string>
+    <string name="information_detail_en">This is a Korean language\n education mobile app for children\n from multicultural families.</string>
+    <string name="information_detail_cn">这是为多文化家庭的孩子\n准备的韩语教育手机应用程序。</string>
+    <string name="information_detail_vn">これは多文化家庭の子どものための韓国語教育用モバイルアプリだ。</string>
+    <string name="information_detail_jp">Đây là ứng dụng di động dành\n cho giáo dục tiếng Hàn dành cho\n trẻ em trong các gia đình đa văn hóa.</string>
+
+<!--    <string name="save_word_kr">단어가 저장되었습니다.</string>-->
+<!--    <string name="save_word_en">(The word has been saved.)</string>-->
+<!--    <string name="save_word_cn">(单词已保存 。)</string>-->
+<!--    <string name="save_word_vn">(Từ vựng đã được lưu.)</string>-->
+<!--    <string name="save_word_jp">(単語が保存されました。)</string>-->
+
+<!--    <string name="delete_word_kr">단어가 삭제되었습니다.</string>-->
+<!--    <string name="delete_word_en">(The word has been deleted.)</string>-->
+<!--    <string name="delete_word_cn">(单词已删除 。)</string>-->
+<!--    <string name="delete_word_vn">(Từ đã bị xóa.)</string>-->
+<!--    <string name="delete_word_jp">(単語が削除されました。)</string>-->
+
+    <string name="save_word_en">단어가 저장되었습니다.\n (The word has been saved.)</string>
+    <string name="save_word_cn">단어가 저장되었습니다.\n (单词已保存 。)</string>
+    <string name="save_word_vn">단어가 저장되었습니다.\n (Từ vựng đã được lưu.)</string>
+    <string name="save_word_jp">단어가 저장되었습니다.\n (単語が保存されました。)</string>
+
+    <string name="delete_word_en">단어가 삭제되었습니다.\n (The word has been deleted.)</string>
+    <string name="delete_word_cn">단어가 삭제되었습니다.\n (单词已删除 。)</string>
+    <string name="delete_word_vn">단어가 삭제되었습니다.\n (Từ đã bị xóa.)</string>
+    <string name="delete_word_jp">단어가 삭제되었습니다.\n (単語が削除されました。)</string>
+
+
 </resources>
