@@ -54,6 +54,12 @@ public class MainActivity extends AppCompatActivity {
         }
         dialog.dismiss();   //다이얼로그 닫기
     }
+    
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
+    }
 
     //선택된 언어에 맞춰 TextView 의 텍스트를 설정하는 함수
     private void setLanguageUI(String language) {
