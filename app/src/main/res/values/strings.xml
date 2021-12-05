@@ -73,5 +73,27 @@
     <string name="delete_word_vn">단어가 삭제되었습니다.\n (Từ đã bị xóa.)</string>
     <string name="delete_word_jp">단어가 삭제되었습니다.\n (単語が削除されました。)</string>
 
+    <string name="take_picture_kr">이미지/텍스트 촬영</string>
+    <string name="take_picture_en">(image/text shooting)</string>
+    <string name="take_picture_cn">(图像/文字拍摄)</string>
+    <string name="take_picture_vn">(Chụp ảnh/văn bản)</string>
+    <string name="take_picture_jp">(画像/テキスト撮影)</string>
 
+    <string name="take_photo_alert_kr">사진 촬영 시\n하나의 물체만 찍어주세요.</string>
+    <string name="take_photo_alert_en">(When taking pictures, please take only one object.)</string>
+    <string name="take_photo_alert_cn">(拍照时，请只拍摄一个物体.)</string>
+    <string name="take_photo_alert_vn">(Khi chụp ảnh, vui lòng chỉ chụp một đối tượng.)</string>
+    <string name="take_photo_alert_jp">(写真を撮るときは、1つの物体を撮ってください.)</string>
+
+    <string name="object_recognition_kr">사진 찍기</string>
+    <string name="object_recognition_en">(object\nrecognition)</string>
+    <string name="object_recognition_cn">(照片拍摄)</string>
+    <string name="object_recognition_vn">(Chụp ảnh)</string>
+    <string name="object_recognition_jp">(写真を撮る)</string>
+
+    <string name="text_recognition_kr">글자 찍기</string>
+    <string name="text_recognition_en">(text\nrecognition)</string>
+    <string name="text_recognition_cn">(文字拍摄)</string>
+    <string name="text_recognition_vn">(nhận dạng văn bản)</string>
+    <string name="text_recognition_jp">(テキスト認識)</string>
 </resources>
