@@ -12,12 +12,23 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
+
+        </activity>
+        <activity android:name=".ChangeLanguageActivity" />
+        <activity android:name=".InfoActivity" />
+        <activity android:name=".LearnWordActivity" />
+        <activity android:name=".VocaDetailActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".PracticeWordActivity" />
+        <activity android:name=".SettingActivity" />
+        <activity android:name=".VocaBookActivity" />
+<!--        <activity android:name=".VocaDetailActivity" />-->
     </application>
 
 </manifest>
