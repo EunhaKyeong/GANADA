@@ -2,6 +2,7 @@ package com.pProject.ganada;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -28,11 +29,19 @@ public class ChangeLanguageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_language);
 
+        //툴바 설정
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
+
+        //상태바 설정
+        View view = getWindow().getDecorView();
+        if(view != null) {
+            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setStatusBarColor(Color.parseColor("#FFF2CC"));
+        }
 
         //sharedPreferences 에서 선택된 언어 가져오기
         language = getSharedPreferences("Language", MODE_PRIVATE).getString("language", null);
@@ -65,6 +74,7 @@ public class ChangeLanguageActivity extends AppCompatActivity {
                 changeTvStyle("english");
             }
         });
+
         englishTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -149,7 +159,7 @@ public class ChangeLanguageActivity extends AppCompatActivity {
 
     //MainActivity 화면으로 이동하는 함수
     public void goMainActivity() {
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        startActivity(new Intent(getApplicationContext(), SettingActivity.class));
     }
 
     //SharedPreferences 에 선택한 언어 저장하는 함수

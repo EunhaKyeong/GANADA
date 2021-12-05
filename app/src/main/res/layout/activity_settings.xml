@@ -47,8 +47,8 @@
             android:id="@+id/lang_icon"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="18dp"
-            android:src="@drawable/ic_language2"
+            android:layout_marginStart="17dp"
+            android:src="@drawable/ic_language"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -108,10 +108,10 @@
 
         <ImageView
             android:id="@+id/info_icon"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
             android:layout_marginStart="18dp"
-            android:src="@drawable/ic_information2"
+            android:src="@drawable/ic_information"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -120,7 +120,7 @@
             android:id="@+id/info_kr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="12dp"
             android:text="@string/information_kr"
             android:textColor="@color/black"
             android:textSize="20sp"
