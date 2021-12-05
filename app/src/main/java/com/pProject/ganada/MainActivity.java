@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView takePictureTv, vocaTv, settingTv;
     private View takePictureView;
+
     private Dialog dialog;
     private String language;
 
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         language = getSharedPreferences("Language", MODE_PRIVATE).getString("language", null);
 
         setLanguageUI(language);    //선택된 언어에 맞춰 TextView 의 텍스트를 설정하는 함수 호출
+
 
         //이미지/텍스트 촬영 클릭 리스너 -> 물체 인식인지 텍스트 인식인지 클릭하는 다이얼로그 띄우기
         takePictureView = (View) findViewById(R.id.take_picture_view);
