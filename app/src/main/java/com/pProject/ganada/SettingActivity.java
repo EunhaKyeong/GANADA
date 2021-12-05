@@ -31,10 +31,6 @@ public class SettingActivity extends AppCompatActivity {
         change_language = (ConstraintLayout) findViewById(R.id.change_language);
         information = (ConstraintLayout) findViewById(R.id.information);
 
-        //sharedPreferences 에서 선택된 언어 가져오기
-        language = getSharedPreferences("Language", MODE_PRIVATE).getString("language", null);
-        setLanguageUI(language);    //선택된 언어에 맞춰 TextView 의 텍스트를 설정하는 함수 호출
-
         change_language.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,6 +44,15 @@ public class SettingActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), InfoActivity.class));
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //sharedPreferences 에서 선택된 언어 가져오기
+        language = getSharedPreferences("Language", MODE_PRIVATE).getString("language", null);
+        setLanguageUI(language);    //선택된 언어에 맞춰 TextView 의 텍스트를 설정하는 함수 호출
     }
 
     //선택된 언어에 맞춰 TextView 의 텍스트를 설정하는 함수
