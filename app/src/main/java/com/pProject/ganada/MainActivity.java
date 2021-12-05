@@ -1,19 +1,16 @@
 package com.pProject.ganada;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -62,19 +59,6 @@ public class MainActivity extends AppCompatActivity {
         //sharedPreferences 에서 선택된 언어 가져오기
         language = getSharedPreferences("Language", MODE_PRIVATE).getString("language", null);
         setLanguageUI(language);    //선택된 언어에 맞춰 TextView 의 텍스트를 설정하는 함수 호출
-    }
-
-    //카메라 사용권한 콜백 함수
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (isCameraPermissionGranted()) {    //카메라 권한이 허용됐으면
-            startCameraActivity();  //CameraActivity 실행
-        } else {
-            Toast.makeText(MainActivity.this, "카메라 사용 권한을 허용해주세요.", Toast.LENGTH_SHORT).show();
-        }
-        dialog.dismiss();   //다이얼로그 닫기
     }
 
     @Override
@@ -128,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         objectRecognitionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startCameraLogic();
+                startBottomSheetDialog();   //카메라 촬영인지, 앨범 이동할건지 묻는 다이얼로그를 띄우는 함수 실행
             }
         });
 
@@ -137,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         textRecognitionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startCameraLogic();
+                startBottomSheetDialog();   //카메라 촬영인지, 앨범 이동할건지 묻는 다이얼로그를 띄우는 함수 실행
             }
         });
 
@@ -182,27 +166,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //카메라 실행 로직 함수
-    private void startCameraLogic() {
-        if (isCameraPermissionGranted()) {
-            startCameraActivity();
-            dialog.dismiss();
-        } else {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{"android.permission.CAMERA"}, 101);
-        }
-    }
+    //카메라 촬영인지, 앨범 이동할건지 묻는 다이얼로그를 띄우는 함수
+    private void startBottomSheetDialog() {
+        BottomSheetDialogFragment dialogFragment = new BottomSheetDialogFragment();
+        dialogFragment.show(getSupportFragmentManager(), dialogFragment.getTag());
 
-    //CameraActivity로 이동하는 함수
-    private void startCameraActivity() {
-        startActivity(new Intent(this, CameraActivity.class));
-    }
-
-    //카메라 권한이 있는지 체크하는 함수
-    private boolean isCameraPermissionGranted() {
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), "android.permission.CAMERA") == PackageManager.PERMISSION_GRANTED)
-            return true;
-        else
-            return false;
+        dialog.dismiss();
     }
 
     private void startSettingActivity() {
@@ -212,4 +181,11 @@ public class MainActivity extends AppCompatActivity {
     private void startVocaBookActivity() {
         startActivity(new Intent(this, VocaBookActivity.class));
     }
+
+    void startLearnWord(Uri uri) {
+        Intent intent = new Intent(this, LearnWordActivity.class);
+        intent.putExtra("uri", uri.toString()); //intent에 사진 uri 전달
+        startActivity(intent);  //인텐트 실행
+    }
+
 }
