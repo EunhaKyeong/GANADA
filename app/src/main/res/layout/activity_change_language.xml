@@ -122,13 +122,13 @@
         app:layout_constraintStart_toStartOf="@id/japan_iv"
         app:layout_constraintTop_toBottomOf="@+id/japan_iv" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/setting_up_btn"
         android:layout_width="230dp"
         android:layout_height="70dp"
         android:layout_marginBottom="80dp"
+        app:backgroundTint="@null"
         android:background="@drawable/btn_shape"
-        android:backgroundTint="@color/light_yellow"
         android:text="@string/setting_up"
         android:textColor="@color/black"
         android:textSize="24sp"
