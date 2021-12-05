@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,7 +24,7 @@ public class PracticeWordActivity extends AppCompatActivity {
 
     private TextView practice_foreign;
     private ConstraintLayout draw_linear;
-    private Button btn_clear;
+    private ImageButton btn_clear;
     private String language;
 
     class Point {
@@ -152,7 +153,7 @@ public class PracticeWordActivity extends AppCompatActivity {
 
         final MyView m = new MyView(this);
 
-        btn_clear = (Button) findViewById(R.id.btn_clear);
+        btn_clear = (ImageButton) findViewById(R.id.btn_clear);
         draw_linear = (ConstraintLayout) findViewById(R.id.draw_linear);
 
         //sharedPreferences 에서 선택된 언어 가져오기

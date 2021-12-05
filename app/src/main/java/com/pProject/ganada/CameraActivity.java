@@ -120,7 +120,7 @@ public class CameraActivity extends AppCompatActivity {
 
     //CameraAfterActivity 이동 함수
     private void startCameraAfter(Uri uri) {
-        Intent intent = new Intent(this, CameraAfterActivity.class);
+        Intent intent = new Intent(this, LearnWordActivity.class);
         intent.putExtra("uri", uri.toString()); //intent에 사진 uri 전달
         startActivity(intent);  //인텐트 실행
 
