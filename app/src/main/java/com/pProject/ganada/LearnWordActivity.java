@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,7 +18,8 @@ import androidx.appcompat.widget.Toolbar;
 
 public class LearnWordActivity extends AppCompatActivity {
 
-    private TextView word, example_sentence, learn_word_foreign, practice_foreign;
+    private TextView word, example_sentence, practice_foreign;
+    private ImageButton btn_back, btn_word_pronunciation, btn_sentence_pronunciation;
     private CheckBox btn_bookmark;
     private ImageView word_pic;
     private String language;
@@ -28,12 +30,6 @@ public class LearnWordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn_word);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
-
         Intent intent = getIntent();
         Uri uri = Uri.parse(intent.getStringExtra("uri"));
 
@@ -41,13 +37,24 @@ public class LearnWordActivity extends AppCompatActivity {
         word_pic.setImageURI(uri);
 
         btn_bookmark = (CheckBox) findViewById(R.id.btn_bookmark);
+        btn_back = (ImageButton) findViewById(R.id.btn_back);
+        btn_word_pronunciation = (ImageButton) findViewById(R.id.btn_word_pronunciation);
+        btn_sentence_pronunciation = (ImageButton) findViewById(R.id.btn_sentence_pronunciation);
         practice_view = (View) findViewById(R.id.practice_view);
 
         //sharedPreferences 에서 선택된 언어 가져오기
         language = getSharedPreferences("Language", MODE_PRIVATE).getString("language", null);
         setLanguageUI(language);    //선택된 언어에 맞춰 TextView 의 텍스트를 설정하는 함수 호출
 
+        //뒤로가기 버튼
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
+        //단어 저장 및 삭제시 토스트메세지 출력
         btn_bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,6 +72,7 @@ public class LearnWordActivity extends AppCompatActivity {
             }
         });
 
+        //따라쓰기 페이지로 이동
         practice_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,35 +85,21 @@ public class LearnWordActivity extends AppCompatActivity {
 
     //선택된 언어에 맞춰 TextView 의 텍스트를 설정하는 함수
     private void setLanguageUI(String language) {
-
-        learn_word_foreign = (TextView) findViewById(R.id.learn_word_foreign);
         practice_foreign = (TextView) findViewById(R.id.practice_foreign);
 
         switch (language) {
             case "english":
-                learn_word_foreign.setText(R.string.learn_word_en);
                 practice_foreign.setText(R.string.practice_en);
                 break;
             case "china":
-                learn_word_foreign.setText(R.string.learn_word_cn);
                 practice_foreign.setText(R.string.practice_cn);
                 break;
             case "vietnam":
-                learn_word_foreign.setText(R.string.learn_word_vn);
                 practice_foreign.setText(R.string.practice_vn);
                 break;
             default:
-                learn_word_foreign.setText(R.string.learn_word_jp);
                 practice_foreign.setText(R.string.practice_jp);
                 break;
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
     }
 }
