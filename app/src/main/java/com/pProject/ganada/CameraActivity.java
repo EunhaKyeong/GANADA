@@ -95,7 +95,7 @@ public class CameraActivity extends AppCompatActivity {
                     public void onImageSaved(ImageCapture.OutputFileResults outputFileResults) {    //사진 찍기 성공
                         //file -> Uri 변경
                         Uri savedUri = Uri.fromFile(photoFile);
-                        startCameraAfter(savedUri); //CameraAfterActivity 실행
+                        startLearnWord(savedUri); //CameraAfterActivity 실행
                         Log.d("CameraActivity", savedUri.toString());
                     }
 
@@ -119,7 +119,7 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     //CameraAfterActivity 이동 함수
-    private void startCameraAfter(Uri uri) {
+    private void startLearnWord(Uri uri) {
         Intent intent = new Intent(this, LearnWordActivity.class);
         intent.putExtra("uri", uri.toString()); //intent에 사진 uri 전달
         startActivity(intent);  //인텐트 실행
