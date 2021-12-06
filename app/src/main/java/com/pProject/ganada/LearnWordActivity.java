@@ -30,9 +30,16 @@ public class LearnWordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn_word);
 
+        //intent 를 통해 image Uri, 인식된 텍스트를 전달 받음.
         Intent intent = getIntent();
         Uri uri = Uri.parse(intent.getStringExtra("uri"));
+        String text = intent.getStringExtra("recognizedText");
 
+        //전달 받은 텍스트로 UI 바인딩
+        word = (TextView) findViewById(R.id.word);
+        word.setText(text);
+
+        //전달 받은 uri 로 UI 바인딩
         word_pic = (ImageView) findViewById(R.id.word_pic);
         word_pic.setImageURI(uri);
 

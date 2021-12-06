@@ -13,6 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_ganada_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ganada">
+        <meta-data
+            android:name="com.google.mlkit.vision.DEPENDENCIES"
+            android:value="ocr" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />

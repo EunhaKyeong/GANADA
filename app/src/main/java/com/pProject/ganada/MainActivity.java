@@ -106,21 +106,21 @@ public class MainActivity extends AppCompatActivity {
 
         setDialogLanguageUI(language);  //선택된 언어에 맞춰 다이얼로그 텍스트뷰의 텍스트 언어를 설정하는 함수 호출
 
-        //사진 찍기 클릭 리스너 -> 카메라 실행 로직 함수 호출
+        //물체 인식 클릭 리스너 -> 카메라 실행 로직 함수 호출
         View objectRecognitionView = (View) recognizeSelectDialog.findViewById(R.id.object_recognition_view);
         objectRecognitionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startBottomSheetDialog();   //카메라 촬영인지, 앨범 이동할건지 묻는 다이얼로그를 띄우는 함수 실행
+                startBottomSheetDialog("object");   //카메라 촬영인지, 앨범 이동할건지 묻는 다이얼로그를 띄우는 함수 실행
             }
         });
 
-        //글자 찍기 클릭 리스너 -> 카메라 실행 로직 함수 호출
+        //텍스트 인식 클릭 리스너 -> 카메라 실행 로직 함수 호출
         View textRecognitionView = (View) recognizeSelectDialog.findViewById(R.id.text_recognition_view);
         textRecognitionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startBottomSheetDialog();   //카메라 촬영인지, 앨범 이동할건지 묻는 다이얼로그를 띄우는 함수 실행
+                startBottomSheetDialog("text");   //카메라 촬영인지, 앨범 이동할건지 묻는 다이얼로그를 띄우는 함수 실행
             }
         });
 
@@ -166,8 +166,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //카메라 촬영인지, 앨범 이동할건지 묻는 다이얼로그를 띄우는 함수
-    private void startBottomSheetDialog() {
-        BottomSheetDialogFragment dialogFragment = new BottomSheetDialogFragment();
+    private void startBottomSheetDialog(String objectType) {
+        BottomSheetDialogFragment dialogFragment = new BottomSheetDialogFragment(objectType);
         dialogFragment.show(getSupportFragmentManager(), dialogFragment.getTag());
 
         recognizeSelectDialog.dismiss();
@@ -181,9 +181,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, VocaBookActivity.class));
     }
 
-    void startLearnWord(Uri uri) {
+    void startLearnWord(Uri uri, String recognizedText) {
         Intent intent = new Intent(this, LearnWordActivity.class);
         intent.putExtra("uri", uri.toString()); //intent에 사진 uri 전달
+        intent.putExtra("recognizedText", recognizedText);
         startActivity(intent);  //인텐트 실행
     }
 
