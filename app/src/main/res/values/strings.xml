@@ -67,7 +67,7 @@
     <string name="take_picture_vn">(Chụp ảnh/văn bản)</string>
     <string name="take_picture_jp">(画像/テキスト撮影)</string>
 
-    <string name="take_photo_alert_kr">사진 촬영 시\n하나의 물체만 찍어주세요.</string>
+    <string name="take_photo_alert_kr">사진 촬영 시\n하나의 물체만\n찍어주세요.</string>
     <string name="take_photo_alert_en">(When taking pictures, please take only one object.)</string>
     <string name="take_photo_alert_cn">(拍照时，请只拍摄一个物体.)</string>
     <string name="take_photo_alert_vn">(Khi chụp ảnh, vui lòng chỉ chụp một đối tượng.)</string>
