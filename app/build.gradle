@@ -49,6 +49,10 @@ dependencies {
     //TedImagePicker
     implementation 'io.github.ParkSangGwon:tedimagepicker:1.2.7'
 
+    //ml kit - text recognition
+    implementation 'com.google.mlkit:text-recognition:16.0.0-beta1'
+    implementation 'com.google.mlkit:text-recognition-korean:16.0.0-beta1'
+
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
