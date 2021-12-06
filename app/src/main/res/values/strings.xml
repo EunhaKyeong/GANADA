@@ -73,16 +73,16 @@
     <string name="take_photo_alert_vn">(Khi chụp ảnh, vui lòng chỉ chụp một đối tượng.)</string>
     <string name="take_photo_alert_jp">(写真を撮るときは、1つの物体を撮ってください.)</string>
 
-    <string name="object_recognition_kr">사진 찍기</string>
+    <string name="object_recognition_kr">사물 인식</string>
     <string name="object_recognition_en">(object\nrecognition)</string>
-    <string name="object_recognition_cn">(照片拍摄)</string>
-    <string name="object_recognition_vn">(Chụp ảnh)</string>
-    <string name="object_recognition_jp">(写真を撮る)</string>
+    <string name="object_recognition_cn">(物体识别)</string>
+    <string name="object_recognition_vn">(Nhận dạn\nđối tượng)</string>
+    <string name="object_recognition_jp">(物事認識)</string>
 
-    <string name="text_recognition_kr">글자 찍기</string>
+    <string name="text_recognition_kr">텍스트 인식</string>
     <string name="text_recognition_en">(text\nrecognition)</string>
-    <string name="text_recognition_cn">(文字拍摄)</string>
-    <string name="text_recognition_vn">(nhận dạng văn bản)</string>
+    <string name="text_recognition_cn">(文字识别)</string>
+    <string name="text_recognition_vn">(nhận dạng\nvăn bản)</string>
     <string name="text_recognition_jp">(テキスト認識)</string>
 
     <string name="using_camera_kr">사진 촬영하기</string>
