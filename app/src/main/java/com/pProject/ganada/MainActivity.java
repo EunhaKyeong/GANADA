@@ -1,6 +1,5 @@
 package com.pProject.ganada;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
@@ -16,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView takePictureTv, vocaTv, settingTv;
     private View takePictureView, settingView, vocabularyView;
-    private Dialog dialog;
+    private Dialog recognizeSelectDialog;
     private String language;
 
     @Override
@@ -100,15 +99,15 @@ public class MainActivity extends AppCompatActivity {
 
     //이미지/텍스트 촬영 다이얼로그 띄우는 함수
     private void startDialog() {
-        dialog = new Dialog(this);  // Dialog 초기화
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // 타이틀 제거
-        dialog.setContentView(R.layout.take_picture_dialog);    // xml 레이아웃 파일과 연결
-        dialog.show();
+        recognizeSelectDialog = new Dialog(this);  // Dialog 초기화
+        recognizeSelectDialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // 타이틀 제거
+        recognizeSelectDialog.setContentView(R.layout.recognize_select_dialog);    // xml 레이아웃 파일과 연결
+        recognizeSelectDialog.show();
 
         setDialogLanguageUI(language);  //선택된 언어에 맞춰 다이얼로그 텍스트뷰의 텍스트 언어를 설정하는 함수 호출
 
         //사진 찍기 클릭 리스너 -> 카메라 실행 로직 함수 호출
-        View objectRecognitionView = (View) dialog.findViewById(R.id.object_recognition_view);
+        View objectRecognitionView = (View) recognizeSelectDialog.findViewById(R.id.object_recognition_view);
         objectRecognitionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //글자 찍기 클릭 리스너 -> 카메라 실행 로직 함수 호출
-        View textRecognitionView = (View) dialog.findViewById(R.id.text_recognition_view);
+        View textRecognitionView = (View) recognizeSelectDialog.findViewById(R.id.text_recognition_view);
         textRecognitionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,11 +125,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //나가기 이미지뷰 클릭 -> 다이얼로그 닫기
-        ImageView exitIv = (ImageView) dialog.findViewById(R.id.exit_iv);
+        ImageView exitIv = (ImageView) recognizeSelectDialog.findViewById(R.id.exit_iv);
         exitIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.dismiss();
+                recognizeSelectDialog.dismiss();
             }
         });
     }
@@ -138,9 +137,9 @@ public class MainActivity extends AppCompatActivity {
     //선택된 언어에 맞춰 다이얼로그 텍스트뷰의 텍스트 언어를 설정하는 함수
     private void setDialogLanguageUI(String language) {
 
-        TextView alertTv = (TextView) dialog.findViewById(R.id.alert_other_language_tv);
-        TextView objectRecognitionTv = (TextView) dialog.findViewById(R.id.object_recognition_other_language_tv);
-        TextView textRecognitionTv = (TextView) dialog.findViewById(R.id.text_recognition_other_language_tv);
+        TextView alertTv = (TextView) recognizeSelectDialog.findViewById(R.id.alert_other_language_tv);
+        TextView objectRecognitionTv = (TextView) recognizeSelectDialog.findViewById(R.id.object_recognition_other_language_tv);
+        TextView textRecognitionTv = (TextView) recognizeSelectDialog.findViewById(R.id.text_recognition_other_language_tv);
 
         switch (language) {
             case "english":
@@ -171,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
         BottomSheetDialogFragment dialogFragment = new BottomSheetDialogFragment();
         dialogFragment.show(getSupportFragmentManager(), dialogFragment.getTag());
 
-        dialog.dismiss();
+        recognizeSelectDialog.dismiss();
     }
 
     private void startSettingActivity() {
