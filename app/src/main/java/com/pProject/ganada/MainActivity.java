@@ -11,6 +11,9 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView takePictureTv, vocaTv, settingTv;
@@ -181,10 +184,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, VocaBookActivity.class));
     }
 
-    void startLearnWord(Uri uri, String recognizedText) {
+    void startLearnWord(Uri uri, String recognizedText) throws IOException, ExecutionException, InterruptedException {
+        ExampleParse exampleParse = new ExampleParse();
+        String exam = (String) exampleParse.execute(recognizedText).get();
+
         Intent intent = new Intent(this, LearnWordActivity.class);
         intent.putExtra("uri", uri.toString()); //intent에 사진 uri 전달
         intent.putExtra("recognizedText", recognizedText);
+        intent.putExtra("exam", exam);
         startActivity(intent);  //인텐트 실행
     }
 
