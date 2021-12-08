@@ -109,7 +109,11 @@ public class CameraActivity extends AppCompatActivity {
                         if (objectType.equals("text")) {
                             extractText(savedUri);
                         } else {
-                            startLearnWord(savedUri, ""); //CameraAfterActivity 실행
+                            try {
+                                startLearnWord(savedUri, ""); //CameraAfterActivity 실행
+                            } catch (IOException | ExecutionException | InterruptedException e) {
+                                e.printStackTrace();
+                            }
                             finish();
                         }
                     }
@@ -134,10 +138,14 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     //CameraAfterActivity 이동 함수
-    private void startLearnWord(Uri uri, String recognizedText) {
+    private void startLearnWord(Uri uri, String recognizedText) throws IOException, ExecutionException, InterruptedException {
+        ExampleParse exampleParse = new ExampleParse();
+        String exam = (String) exampleParse.execute(recognizedText).get();
+
         Intent intent = new Intent(this, LearnWordActivity.class);
-        intent.putExtra("uri", uri.toString()); //intent에 사진 uri 전달
+        intent.putExtra("uri", uri.toString()); //intent 에 사진 uri 전달
         intent.putExtra("recognizedText", recognizedText);
+        intent.putExtra("exam", exam);
 
         startActivity(intent);  //인텐트 실행
 
@@ -157,7 +165,11 @@ public class CameraActivity extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<Text>() {
                         @Override
                         public void onSuccess(Text visionText) {
-                            startLearnWord(uri, visionText.getText());
+                            try {
+                                startLearnWord(uri, visionText.getText());
+                            } catch (IOException | ExecutionException | InterruptedException e) {
+                                e.printStackTrace();
+                            }
                             finish();
                         }
                     })

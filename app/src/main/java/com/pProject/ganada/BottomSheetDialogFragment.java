@@ -13,7 +13,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +29,7 @@ import com.google.mlkit.vision.text.TextRecognizer;
 import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 import gun0912.tedimagepicker.builder.TedImagePicker;
 import gun0912.tedimagepicker.builder.listener.OnSelectedListener;
@@ -146,7 +146,15 @@ public class BottomSheetDialogFragment extends com.google.android.material.botto
                 if (objectType == "text") //텍스트 인식이면
                     extractText(uri);   //ML Kit 를 활용해 이미지 속에 있는 텍스트를 인식해 추출하는 함수 호출.
                 else {  //사물 인식이면 바로 LearnWordActivity 로 이동
-                    ((MainActivity) requireActivity()).startLearnWord(uri, "");
+                    try {
+                        ((MainActivity) requireActivity()).startLearnWord(uri, "");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
                     dismiss();
                 }
 
@@ -166,8 +174,11 @@ public class BottomSheetDialogFragment extends com.google.android.material.botto
                     .addOnSuccessListener(new OnSuccessListener<Text>() {
                         @Override
                         public void onSuccess(Text visionText) {
-                            ((MainActivity) requireActivity()).startLearnWord(uri, visionText.getText());
-                            dismiss();
+                            try {
+                                ((MainActivity) requireActivity()).startLearnWord(uri, visionText.getText());
+                            } catch (IOException | ExecutionException | InterruptedException e) {
+                                e.printStackTrace();
+                            }
                         }
                     })
                     .addOnFailureListener(
