@@ -72,6 +72,7 @@ public class VocaBookDetail extends AppCompatActivity {
             }
         });
 
+        //단어 추가
         class InsertRunnable implements Runnable {
             @Override
             public void run() {
@@ -83,6 +84,7 @@ public class VocaBookDetail extends AppCompatActivity {
             }
         }
 
+        //단어 삭제
         class DeleteRunnable implements Runnable {
             @Override
             public void run() {
