@@ -146,18 +146,9 @@ public class BottomSheetDialogFragment extends com.google.android.material.botto
                 if (objectType == "text") //텍스트 인식이면
                     extractText(uri);   //ML Kit 를 활용해 이미지 속에 있는 텍스트를 인식해 추출하는 함수 호출.
                 else {  //사물 인식이면 바로 LearnWordActivity 로 이동
-                    try {
-                        ((MainActivity) requireActivity()).startLearnWord(uri, "");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    }
+                    ((MainActivity) requireActivity()).startLearnWord(uri, "");
                     dismiss();
                 }
-
             }
         });
     }
@@ -170,15 +161,11 @@ public class BottomSheetDialogFragment extends com.google.android.material.botto
             TextRecognizer recognizer =
                     TextRecognition.getClient(new KoreanTextRecognizerOptions.Builder().build());
 
-            Task<Text> result = recognizer.process(image)
+            recognizer.process(image)
                     .addOnSuccessListener(new OnSuccessListener<Text>() {
                         @Override
                         public void onSuccess(Text visionText) {
-                            try {
-                                ((MainActivity) requireActivity()).startLearnWord(uri, visionText.getText());
-                            } catch (IOException | ExecutionException | InterruptedException e) {
-                                e.printStackTrace();
-                            }
+                            ((MainActivity) requireActivity()).startLearnWord(uri, visionText.getText());
                         }
                     })
                     .addOnFailureListener(
