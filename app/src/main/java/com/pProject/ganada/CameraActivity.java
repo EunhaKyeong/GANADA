@@ -18,15 +18,25 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.mlkit.vision.common.InputImage;
+import com.google.mlkit.vision.text.Text;
+import com.google.mlkit.vision.text.TextRecognition;
+import com.google.mlkit.vision.text.TextRecognizer;
+import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 public class CameraActivity extends AppCompatActivity {
 
+    private String objectType;
     private PreviewView previewView;
     private ImageButton captureBtn;
     private ImageCapture imageCapture;
@@ -35,6 +45,9 @@ public class CameraActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
+
+        Intent intent = getIntent();
+        objectType = intent.getStringExtra("objectType");
 
         previewView = (PreviewView) findViewById(R.id.viewFinder);
 
@@ -78,9 +91,6 @@ public class CameraActivity extends AppCompatActivity {
 
     //사진 찍기 함수
     private void takePhoto() {
-
-        Log.d("CameraActivity", "takePhoto");
-
         //찍힌 사진을 저장할 파일 생성
         File photoFile = new File(
                 getOutputDirectory(),
@@ -95,8 +105,17 @@ public class CameraActivity extends AppCompatActivity {
                     public void onImageSaved(ImageCapture.OutputFileResults outputFileResults) {    //사진 찍기 성공
                         //file -> Uri 변경
                         Uri savedUri = Uri.fromFile(photoFile);
-                        startLearnWord(savedUri); //CameraAfterActivity 실행
-                        Log.d("CameraActivity", savedUri.toString());
+
+                        if (objectType.equals("text")) {
+                            extractText(savedUri);
+                        } else {
+                            try {
+                                startLearnWord(savedUri, ""); //CameraAfterActivity 실행
+                            } catch (IOException | ExecutionException | InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            finish();
+                        }
                     }
 
                     @Override
@@ -119,12 +138,51 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     //CameraAfterActivity 이동 함수
-    private void startLearnWord(Uri uri) {
+    private void startLearnWord(Uri uri, String recognizedText) throws IOException, ExecutionException, InterruptedException {
+        ExampleParse exampleParse = new ExampleParse();
+        String exam = (String) exampleParse.execute(recognizedText).get();
+
         Intent intent = new Intent(this, LearnWordActivity.class);
-        intent.putExtra("uri", uri.toString()); //intent에 사진 uri 전달
+        intent.putExtra("uri", uri.toString()); //intent 에 사진 uri 전달
+        intent.putExtra("recognizedText", recognizedText);
+        intent.putExtra("exam", exam);
+
         startActivity(intent);  //인텐트 실행
 
         finish();   //현재 액티비티 종료
+    }
+
+    //ML Kit 를 활용해 이미지 속에 있는 텍스트를 인식해 추출하는 함수
+    public void extractText(Uri uri) {
+        Log.d("CameraActivity", "extractText");
+        try {
+            InputImage image = InputImage.fromFilePath(getApplicationContext(), uri);
+
+            TextRecognizer recognizer =
+                    TextRecognition.getClient(new KoreanTextRecognizerOptions.Builder().build());
+
+            Task<Text> result = recognizer.process(image)
+                    .addOnSuccessListener(new OnSuccessListener<Text>() {
+                        @Override
+                        public void onSuccess(Text visionText) {
+                            try {
+                                startLearnWord(uri, visionText.getText());
+                            } catch (IOException | ExecutionException | InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            finish();
+                        }
+                    })
+                    .addOnFailureListener(
+                            new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    e.printStackTrace();
+                                }
+                            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

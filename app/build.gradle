@@ -3,6 +3,9 @@ plugins {
     id 'kotlin-android'
 }
 
+def Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
 android {
     compileSdk 31
 
@@ -14,6 +17,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "API_KEY", properties.getProperty("api.key"))
     }
 
     dataBinding {
@@ -37,6 +42,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
+    implementation 'com.android.volley:volley:1.2.0'
 
     def camerax_version = "1.0.1"
     // CameraX core library using camera2 implementation
@@ -48,6 +54,10 @@ dependencies {
 
     //TedImagePicker
     implementation 'io.github.ParkSangGwon:tedimagepicker:1.2.7'
+
+    //ml kit - text recognition
+    implementation 'com.google.mlkit:text-recognition:16.0.0-beta1'
+    implementation 'com.google.mlkit:text-recognition-korean:16.0.0-beta1'
 
     // Room DB
     def room_version ="2.3.0"

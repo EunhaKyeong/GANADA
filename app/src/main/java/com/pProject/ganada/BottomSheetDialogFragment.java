@@ -19,14 +19,30 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.mlkit.vision.common.InputImage;
+import com.google.mlkit.vision.text.Text;
+import com.google.mlkit.vision.text.TextRecognition;
+import com.google.mlkit.vision.text.TextRecognizer;
+import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions;
+
+import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+
 import gun0912.tedimagepicker.builder.TedImagePicker;
 import gun0912.tedimagepicker.builder.listener.OnSelectedListener;
 
 public class BottomSheetDialogFragment extends com.google.android.material.bottomsheet.BottomSheetDialogFragment {
 
-    private String language;
+    private String language, objectType;
     private TextView usingCameraOtherLanguageTv, usingGalleryOtherLanguageTv;
     private View usingCameraView, usingGalleryView;
+
+    public BottomSheetDialogFragment(String objectType) {
+        this.objectType = objectType;
+    }
 
     //카메라 권한을 확인하는 launcher
     private ActivityResultLauncher<String> cameraPermissionLauncher = registerForActivityResult(
@@ -114,9 +130,12 @@ public class BottomSheetDialogFragment extends com.google.android.material.botto
         }
     }
 
-    //CameraActivity로 이동하는 함수
+    //CameraActivity 로 이동하는 함수
     private void startCameraActivity() {
-        startActivity(new Intent(requireActivity(), CameraActivity.class));
+        Intent intent = new Intent(requireActivity(), CameraActivity.class);
+        intent.putExtra("objectType", this.objectType);
+
+        startActivity(intent);
     }
 
     //갤러리로 이동하는 함수(TedImagePicker 라이브러리 활용)
@@ -124,11 +143,53 @@ public class BottomSheetDialogFragment extends com.google.android.material.botto
         TedImagePicker.with(requireContext()).start(new OnSelectedListener() {
             @Override
             public void onSelected(Uri uri) {
-                ((MainActivity) requireActivity()).startLearnWord(uri);
-                dismiss();
+                if (objectType == "text") //텍스트 인식이면
+                    extractText(uri);   //ML Kit 를 활용해 이미지 속에 있는 텍스트를 인식해 추출하는 함수 호출.
+                else {  //사물 인식이면 바로 LearnWordActivity 로 이동
+                    try {
+                        ((MainActivity) requireActivity()).startLearnWord(uri, "");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                    dismiss();
+                }
+
             }
         });
-
     }
 
+    //ML Kit 를 활용해 이미지 속에 있는 텍스트를 인식해 추출하는 함수
+    public void extractText(Uri uri) {
+        try {
+            InputImage image = InputImage.fromFilePath(requireContext(), uri);
+
+            TextRecognizer recognizer =
+                    TextRecognition.getClient(new KoreanTextRecognizerOptions.Builder().build());
+
+            Task<Text> result = recognizer.process(image)
+                    .addOnSuccessListener(new OnSuccessListener<Text>() {
+                        @Override
+                        public void onSuccess(Text visionText) {
+                            try {
+                                ((MainActivity) requireActivity()).startLearnWord(uri, visionText.getText());
+                            } catch (IOException | ExecutionException | InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    })
+                    .addOnFailureListener(
+                            new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    e.printStackTrace();
+                                }
+                            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
