@@ -1,10 +1,12 @@
 package com.pProject.ganada;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,7 +26,7 @@ import java.util.ArrayList;
 
 public class PracticeWordActivity extends AppCompatActivity {
 
-    private TextView practice_foreign;
+    private TextView word_tv, practice_foreign;
     private ConstraintLayout draw_linear;
     private ImageButton btn_clear;
     private String language;
@@ -146,6 +149,9 @@ public class PracticeWordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_practice_word);
 
+        Intent intent = getIntent();
+        String word = intent.getStringExtra("word");
+
         //툴바 설정
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -162,8 +168,11 @@ public class PracticeWordActivity extends AppCompatActivity {
 
         final MyView m = new MyView(this);
 
+        word_tv = (TextView) findViewById(R.id.word);
         btn_clear = (ImageButton) findViewById(R.id.btn_clear);
         draw_linear = (ConstraintLayout) findViewById(R.id.draw_linear);
+
+        word_tv.setText(word);
 
         //sharedPreferences 에서 선택된 언어 가져오기
         language = getSharedPreferences("Language", MODE_PRIVATE).getString("language", null);

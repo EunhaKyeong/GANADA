@@ -46,7 +46,7 @@
             android:id="@+id/info_foreign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
+            android:layout_marginStart="8dp"
             android:text="@string/information_en"
             android:textColor="#000000"
             android:textSize="20sp"

@@ -60,7 +60,7 @@
         app:layout_constraintTop_toBottomOf="@+id/word" />
 
     <TextView
-        android:id="@+id/example_sentence"
+        android:id="@+id/ex_sentence"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxWidth="280dp"
@@ -81,9 +81,9 @@
         android:layout_height="24dp"
         android:layout_marginStart="6dp"
         android:background="@drawable/ic_sound2"
-        app:layout_constraintStart_toEndOf="@+id/example_sentence"
-        app:layout_constraintTop_toTopOf="@+id/example_sentence"
-        app:layout_constraintBottom_toBottomOf="@+id/example_sentence"/>
+        app:layout_constraintStart_toEndOf="@+id/ex_sentence"
+        app:layout_constraintTop_toTopOf="@+id/ex_sentence"
+        app:layout_constraintBottom_toBottomOf="@+id/ex_sentence"/>
 
     <View
         android:id="@+id/practice_view"
@@ -93,7 +93,7 @@
         android:background="@drawable/btn_shape"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/example_sentence" />
+        app:layout_constraintTop_toBottomOf="@+id/ex_sentence" />
 
     <ImageView
         android:id="@+id/practice_icon"

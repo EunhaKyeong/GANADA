@@ -43,6 +43,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <TextView
+        android:id="@+id/word"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#D9D9D9"
