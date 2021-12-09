@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,15 +32,17 @@ import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
-public class CameraActivity extends AppCompatActivity {
+public class CameraActivity extends AppCompatActivity implements ExamParsingView {
 
     private String objectType;
     private PreviewView previewView;
     private ImageButton captureBtn;
     private ImageCapture imageCapture;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,11 +112,7 @@ public class CameraActivity extends AppCompatActivity {
                         if (objectType.equals("text")) {
                             extractText(savedUri);
                         } else {
-                            try {
-                                startLearnWord(savedUri, ""); //CameraAfterActivity 실행
-                            } catch (IOException | ExecutionException | InterruptedException e) {
-                                e.printStackTrace();
-                            }
+                            startLearnWord(savedUri, ""); //LearnWordActivity 실행
                             finish();
                         }
                     }
@@ -137,19 +136,17 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
-    //CameraAfterActivity 이동 함수
-    private void startLearnWord(Uri uri, String recognizedText) throws IOException, ExecutionException, InterruptedException {
-        ExampleParse exampleParse = new ExampleParse();
-        String exam = (String) exampleParse.execute(recognizedText).get();
+    //LearnWordActivity 이동 함수
+    private void startLearnWord(Uri uri, String recognizedText) {
+        onParsingLoading();
 
-        Intent intent = new Intent(this, LearnWordActivity.class);
-        intent.putExtra("uri", uri.toString()); //intent 에 사진 uri 전달
-        intent.putExtra("recognizedText", recognizedText);
-        intent.putExtra("exam", exam);
+        HashMap recogHm = new HashMap();
+        recogHm.put("uri", uri);
+        recogHm.put("recognizedText", recognizedText);
 
-        startActivity(intent);  //인텐트 실행
-
-        finish();   //현재 액티비티 종료
+        ExampleParsingService service = new ExampleParsingService();
+        service.setExamParsingView(this);
+        service.getExample(recogHm);
     }
 
     //ML Kit 를 활용해 이미지 속에 있는 텍스트를 인식해 추출하는 함수
@@ -161,16 +158,11 @@ public class CameraActivity extends AppCompatActivity {
             TextRecognizer recognizer =
                     TextRecognition.getClient(new KoreanTextRecognizerOptions.Builder().build());
 
-            Task<Text> result = recognizer.process(image)
+            recognizer.process(image)
                     .addOnSuccessListener(new OnSuccessListener<Text>() {
                         @Override
                         public void onSuccess(Text visionText) {
-                            try {
-                                startLearnWord(uri, visionText.getText());
-                            } catch (IOException | ExecutionException | InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            finish();
+                            startLearnWord(uri, visionText.getText());
                         }
                     })
                     .addOnFailureListener(
@@ -185,4 +177,27 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onParsingLoading() {
+        progressDialog = new ProgressDialog(this);
+        //로딩창을 투명하게
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        progressDialog.show();
+    }
+
+    @Override
+    public void onParsingSuccess(HashMap hm) {
+        Intent intent = new Intent(this, LearnWordActivity.class);
+        intent.putExtra("uri", hm.get("uri").toString()); //intent에 사진 uri 전달
+        intent.putExtra("recognizedText", hm.get("recognizedText").toString());
+        intent.putExtra("exam", hm.get("exam").toString());
+        startActivity(intent);  //인텐트 실행
+
+        progressDialog.dismiss();
+    }
+
+    @Override
+    public void onParsingFail() {
+
+    }
 }
