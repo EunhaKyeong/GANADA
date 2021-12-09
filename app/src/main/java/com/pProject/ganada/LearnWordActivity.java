@@ -24,9 +24,8 @@ public class LearnWordActivity extends AppCompatActivity {
     private VocaDB vocaDB = null;
     private Context mContext;
 
-    private TextView word_tv, ex_sentence_tv, practice_foreign;
     private TextToSpeech tts;
-    private TextView word, example_sentence;
+    private TextView word, example_sentence, practice_foreign;
     private ImageButton btn_back, btn_word_pronunciation, btn_sentence_pronunciation;
     private CheckBox btn_bookmark;
     private ImageView word_pic;
@@ -148,7 +147,7 @@ public class LearnWordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), PracticeWordActivity.class);
-                intent.putExtra("word", word_tv.getText());
+                intent.putExtra("word", word.getText());
                 startActivity(intent);
             }
         });
