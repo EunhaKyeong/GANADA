@@ -3,7 +3,9 @@ package com.pProject.ganada;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
@@ -12,15 +14,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
+import java.util.Locale;
 
 public class VocaBookDetail extends AppCompatActivity {
 
     private VocaDB vocaDB = null;
     private Context mContext;
 
+    private TextToSpeech tts;
     private TextView word_tv, ex_sentence_tv, practice_foreign;
     private ImageButton btn_back, btn_word_pronunciation, btn_sentence_pronunciation;
     private CheckBox btn_bookmark;
@@ -33,44 +37,62 @@ public class VocaBookDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn_word);
 
+        tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                tts.setLanguage(Locale.KOREAN);
+                tts.setSpeechRate(0.75f);
+            }
+        });
+
+        //sharedPreferences 에서 선택된 언어 가져오기
+        language = getSharedPreferences("Language", MODE_PRIVATE).getString("language", null);
+        setLanguageUI(language);    //선택된 언어에 맞춰 TextView 의 텍스트를 설정하는 함수 호출
+
         word_tv = (TextView) findViewById(R.id.word);
         ex_sentence_tv = (TextView) findViewById(R.id.ex_sentence);
         word_pic = (ImageView) findViewById(R.id.word_pic);
 
         btn_bookmark = (CheckBox) findViewById(R.id.btn_bookmark);
         btn_back = (ImageButton) findViewById(R.id.btn_back);
-        btn_word_pronunciation = (ImageButton) findViewById(R.id.btn_word_pronunciation);
-        btn_sentence_pronunciation = (ImageButton) findViewById(R.id.btn_sentence_pronunciation);
         practice_view = (View) findViewById(R.id.practice_view);
 
+        //intent를 통해 id, word, ex_sentence, image uri를 전달 받음.
         Intent intent = getIntent();
-        String position = intent.getStringExtra("position");
         int id = intent.getIntExtra("id",0);
         String word = intent.getStringExtra("word");
         String ex_sentence = intent.getStringExtra("ex_sentence");
         Uri uri = Uri.parse(intent.getStringExtra("picture_uri"));
 
+        //전달 받은 텍스트,Uri로 UI 바인딩
         word_tv.setText(word);
         ex_sentence_tv.setText(ex_sentence);
         word_pic.setImageURI(uri);
-
         btn_bookmark.setChecked(true);
+
+        //단어 스피커 이미지버튼 클릭 리스너
+        btn_word_pronunciation = (ImageButton) findViewById(R.id.btn_word_pronunciation);
+        btn_word_pronunciation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                speakOut(word_tv.getText().toString());
+            }
+        });
+
+        //예문 스피커 이미지버튼 클릭 리스너
+        btn_sentence_pronunciation = (ImageButton) findViewById(R.id.btn_sentence_pronunciation);
+        btn_sentence_pronunciation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                speakOut(ex_sentence_tv.getText().toString());
+            }
+        });
+
+
 
         //DB 생성
         vocaDB = VocaDB.getInstance(this);
         mContext = getApplicationContext();
-
-        //sharedPreferences 에서 선택된 언어 가져오기
-        language = getSharedPreferences("Language", MODE_PRIVATE).getString("language", null);
-        setLanguageUI(language);    //선택된 언어에 맞춰 TextView 의 텍스트를 설정하는 함수 호출
-
-        //뒤로가기 버튼
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
         //단어 추가
         class InsertRunnable implements Runnable {
@@ -104,7 +126,7 @@ public class VocaBookDetail extends AppCompatActivity {
 
                     Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.save_word_en), Toast.LENGTH_SHORT);
                     TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-                    if( v != null) v.setGravity(Gravity.CENTER);
+                    if(v != null) v.setGravity(Gravity.CENTER);
                     toast.show();
                 } else {
                     //delete DB
@@ -114,7 +136,7 @@ public class VocaBookDetail extends AppCompatActivity {
 
                     Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.delete_word_en), Toast.LENGTH_SHORT);
                     TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-                    if( v != null) v.setGravity(Gravity.CENTER);
+                    if(v != null) v.setGravity(Gravity.CENTER);
                     toast.show();
                 }
             }
@@ -129,6 +151,23 @@ public class VocaBookDetail extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //뒤로가기 버튼
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (tts != null) {
+            tts.stop();
+            tts.shutdown();
+        }
     }
 
     //선택된 언어에 맞춰 TextView 의 텍스트를 설정하는 함수
@@ -150,4 +189,11 @@ public class VocaBookDetail extends AppCompatActivity {
                 break;
         }
     }
+
+    //TTS 함수
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void speakOut(String text) {
+        tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+    }
+
 }
