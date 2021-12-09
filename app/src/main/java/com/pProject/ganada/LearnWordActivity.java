@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
@@ -118,7 +117,7 @@ public class LearnWordActivity extends AppCompatActivity {
         btn_bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(btn_bookmark.isChecked()) {
+                if (btn_bookmark.isChecked()) {
                     //insert DB
                     InsertRunnable insertRunnable = new InsertRunnable();
                     Thread addThread = new Thread(insertRunnable);
