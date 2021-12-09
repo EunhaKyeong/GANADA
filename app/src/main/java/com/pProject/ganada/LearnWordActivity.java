@@ -125,8 +125,8 @@ public class LearnWordActivity extends AppCompatActivity {
                     addThread.start();
 
                     Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.save_word_en), Toast.LENGTH_SHORT);
-                    TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-                    if(v != null) v.setGravity(Gravity.CENTER);
+                    /*TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+                    if(v != null) v.setGravity(Gravity.CENTER);*/
                     toast.show();
                 } else {
                     //delete DB
@@ -135,8 +135,8 @@ public class LearnWordActivity extends AppCompatActivity {
                     deleteThread.start();
 
                     Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.delete_word_en), Toast.LENGTH_SHORT);
-                    TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-                    if(v != null) v.setGravity(Gravity.CENTER);
+                    /*TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+                    if(v != null) v.setGravity(Gravity.CENTER);*/
                     toast.show();
                 }
             }
