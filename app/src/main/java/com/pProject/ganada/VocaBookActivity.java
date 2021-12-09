@@ -1,17 +1,34 @@
 package com.pProject.ganada;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.loader.content.AsyncTaskLoader;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class VocaBookActivity extends AppCompatActivity {
+
+    private List<Voca> vocaList;
+    private VocaDB vocaDB = null;
+    private Context mContext = null;
+    private VocaAdapter vocaAdapter;
+    private RecyclerView mRecyclerView;
 
     private TextView voca_note_foreign;
     private String language;
@@ -20,6 +37,14 @@ public class VocaBookActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voca_book);
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView.setNestedScrollingEnabled(false);
+        mContext = getApplicationContext();
+        vocaAdapter = new VocaAdapter(VocaBookActivity.this, vocaList);
+
+        vocaList = new ArrayList<>();
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
 
         //툴바 설정
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -30,17 +55,38 @@ public class VocaBookActivity extends AppCompatActivity {
 
         //상태바 설정
         View view = getWindow().getDecorView();
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if(view != null) {
-                view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-                getWindow().setStatusBarColor(Color.parseColor("#FFF2CC"));
-            }
+        if (view != null) {
+            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setStatusBarColor(Color.parseColor("#FFF2CC"));
         }
 
         //sharedPreferences 에서 선택된 언어 가져오기
         language = getSharedPreferences("Language", MODE_PRIVATE).getString("language", null);
         setLanguageUI(language);    //선택된 언어에 맞춰 TextView 의 텍스트를 설정하는 함수 호출
 
+        //DB 생성
+        vocaDB = VocaDB.getInstance(this);
+
+        //DB getAll();
+        class InsertRunnable implements Runnable {
+            @Override
+            public void run() {
+                try {
+                    vocaList = VocaDB.getInstance(mContext).vocaDao().getAll();
+                    vocaAdapter = new VocaAdapter(VocaBookActivity.this, vocaList);
+                    vocaAdapter.notifyDataSetChanged();
+
+                    mRecyclerView.setAdapter(vocaAdapter);
+                    LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false);
+                    mRecyclerView.setLayoutManager(mLinearLayoutManager);
+                } catch(Exception e){
+
+                }
+            }
+        }
+        InsertRunnable insertRunnable = new InsertRunnable();
+        Thread t = new Thread(insertRunnable);
+        t.start();
     }
 
     //선택된 언어에 맞춰 TextView 의 텍스트를 설정하는 함수

@@ -41,6 +41,7 @@
         <activity android:name=".PracticeWordActivity" />
         <activity android:name=".SettingActivity" />
         <activity android:name=".VocaBookActivity" />
+        <activity android:name=".VocaBookDetail" />
     </application>
 
 </manifest>
