@@ -31,17 +31,19 @@ import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
-public class CameraActivity extends AppCompatActivity implements ExamParsingView {
+public class CameraActivity extends AppCompatActivity implements CaptionView {
 
     private String objectType;
     private PreviewView previewView;
     private ImageButton captureBtn;
     private ImageCapture imageCapture;
     private ProgressDialog progressDialog;
+    private File outputFile;
+    private CaptionService captionService;
+    private ExampleParsingService exampleParsingService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +53,15 @@ public class CameraActivity extends AppCompatActivity implements ExamParsingView
         Intent intent = getIntent();
         objectType = intent.getStringExtra("objectType");
 
+        captionService = new CaptionService();
+        captionService.setCaptionView(this);
+
+        exampleParsingService = new ExampleParsingService();
+        exampleParsingService.setCaptionView(this);
+
         previewView = (PreviewView) findViewById(R.id.viewFinder);
 
+        outputFile = getOutputDirectory();
         startCamera();  //카메라 실행
 
         captureBtn = (ImageButton) findViewById(R.id.camera_capture_btn);
@@ -95,7 +104,7 @@ public class CameraActivity extends AppCompatActivity implements ExamParsingView
     private void takePhoto() {
         //찍힌 사진을 저장할 파일 생성
         File photoFile = new File(
-                getOutputDirectory(),
+                outputFile,
                 new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSS", Locale.KOREA).format(System.currentTimeMillis()) + ".jpg"
         );
 
@@ -105,14 +114,13 @@ public class CameraActivity extends AppCompatActivity implements ExamParsingView
                 new ImageCapture.OnImageSavedCallback() {
                     @Override
                     public void onImageSaved(ImageCapture.OutputFileResults outputFileResults) {    //사진 찍기 성공
-                        //file -> Uri 변경
-                        Uri savedUri = Uri.fromFile(photoFile);
+                        onCaptionLoading();
 
-                        if (objectType.equals("text")) {
+                        if (objectType.equals("text")) {    //텍스트 인식
+                            Uri savedUri = Uri.fromFile(photoFile); //file -> Uri 변경
                             extractText(savedUri);
                         } else {
-                            startLearnWord(savedUri, ""); //LearnWordActivity 실행
-                            finish();
+                            captionService.getPictureCaption(photoFile);    //물체 인식
                         }
                     }
 
@@ -126,31 +134,20 @@ public class CameraActivity extends AppCompatActivity implements ExamParsingView
 
     //사진 저장할 디렉토리 생성 or 가져오기
     private File getOutputDirectory() {
-        File mediaDir = getExternalMediaDirs()[0];
+        File mediaDir = this.getFilesDir();
 
         if (mediaDir != null && mediaDir.exists()) {
             return mediaDir;
         } else {
             return getFilesDir();
         }
-    }
 
-    //LearnWordActivity 이동 함수
-    private void startLearnWord(Uri uri, String recognizedText) {
-        onParsingLoading();
-
-        HashMap recogHm = new HashMap();
-        recogHm.put("uri", uri);
-        recogHm.put("recognizedText", recognizedText);
-
-        ExampleParsingService service = new ExampleParsingService();
-        service.setExamParsingView(this);
-        service.getExample(recogHm);
     }
 
     //ML Kit 를 활용해 이미지 속에 있는 텍스트를 인식해 추출하는 함수
     public void extractText(Uri uri) {
         Log.d("CameraActivity", "extractText");
+
         try {
             InputImage image = InputImage.fromFilePath(getApplicationContext(), uri);
 
@@ -161,7 +158,9 @@ public class CameraActivity extends AppCompatActivity implements ExamParsingView
                     .addOnSuccessListener(new OnSuccessListener<Text>() {
                         @Override
                         public void onSuccess(Text visionText) {
-                            startLearnWord(uri, visionText.getText());
+                            Caption caption = new Caption();
+                            caption.setKind(visionText.getText());
+                            exampleParsingService.getExample(uri, caption);
                         }
                     })
                     .addOnFailureListener(
@@ -177,7 +176,7 @@ public class CameraActivity extends AppCompatActivity implements ExamParsingView
     }
 
     @Override
-    public void onParsingLoading() {
+    public void onCaptionLoading() {
         progressDialog = new ProgressDialog(this);
         //로딩창을 투명하게
         progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
@@ -185,18 +184,16 @@ public class CameraActivity extends AppCompatActivity implements ExamParsingView
     }
 
     @Override
-    public void onParsingSuccess(HashMap hm) {
+    public void onCaptionSuccess(Uri uri, Caption caption) {
         Intent intent = new Intent(this, LearnWordActivity.class);
-        intent.putExtra("uri", hm.get("uri").toString()); //intent에 사진 uri 전달
-        intent.putExtra("recognizedText", hm.get("recognizedText").toString());
-        intent.putExtra("exam", hm.get("exam").toString());
+        intent.putExtra("uri", uri.toString()); //intent에 사진 uri 전달
+        if (caption.getKind().equals("-1"))
+            intent.putExtra("recognizedText", "");
+        else
+            intent.putExtra("recognizedText", caption.getKind());
+        intent.putExtra("exam", caption.getMessage());
         startActivity(intent);  //인텐트 실행
 
         progressDialog.dismiss();
-    }
-
-    @Override
-    public void onParsingFail() {
-
     }
 }
