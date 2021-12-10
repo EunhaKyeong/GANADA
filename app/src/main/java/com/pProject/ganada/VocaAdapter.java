@@ -15,13 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class VocaAdapter extends RecyclerView.Adapter<VocaAdapter.ViewHolder>{
+public class VocaAdapter extends RecyclerView.Adapter<VocaAdapter.ViewHolder> {
     private List<Voca> vocaList;
     private Activity context;
     private VocaDB vocaDB;
     private Context mContext;
 
-    public VocaAdapter(Context context, List<Voca> list){
+    public VocaAdapter(Context context, List<Voca> list) {
         this.mContext = context;
         this.vocaList = list;
     }
@@ -29,10 +29,9 @@ public class VocaAdapter extends RecyclerView.Adapter<VocaAdapter.ViewHolder>{
     //어떤 xml로 뷰 홀더를 생성할지 지정
     @NonNull
     @Override
-    public VocaAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
-    {
+    public VocaAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
-        LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.list_voca_book, parent, false);
         VocaAdapter.ViewHolder vh = new VocaAdapter.ViewHolder(view);
 
@@ -41,7 +40,7 @@ public class VocaAdapter extends RecyclerView.Adapter<VocaAdapter.ViewHolder>{
 
     //뷰 홀더에 데이터를 바인딩
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position){
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Voca voca = vocaList.get(position);
         holder.itemView.setTag(position);
 //        holder.word_id.setText(String.valueOf(voca.getId()));
@@ -56,17 +55,17 @@ public class VocaAdapter extends RecyclerView.Adapter<VocaAdapter.ViewHolder>{
                 intent = new Intent(mContext, VocaBookDetail.class);
                 intent.putExtra("position", voca.toString());
                 intent.putExtra("id", voca.getId());
-                intent.putExtra("word",word);
-                intent.putExtra("ex_sentence",voca.ex_sentence);
-                intent.putExtra("picture_uri",voca.picture_uri);
-                intent.putExtra("checked",true);
+                intent.putExtra("word", word);
+                intent.putExtra("ex_sentence", voca.ex_sentence);
+                intent.putExtra("picture_uri", voca.picture_uri);
+                intent.putExtra("checked", true);
                 mContext.startActivity(intent);
             }
         });
     }
 
     //뷰 홀더 개수 리턴턴
-   @Override
+    @Override
     public int getItemCount() {
         return vocaList.size();
     }
@@ -76,7 +75,7 @@ public class VocaAdapter extends RecyclerView.Adapter<VocaAdapter.ViewHolder>{
         ImageView word_pic;
         TextView word;
 
-        ViewHolder(View view){
+        ViewHolder(View view) {
             super(view);
 //            word_id = view.findViewById(R.id.word_id);
             word = view.findViewById(R.id.word);

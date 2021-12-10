@@ -73,7 +73,7 @@ public class VocaBookActivity extends AppCompatActivity {
                     mRecyclerView.setAdapter(vocaAdapter);
                     LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false);
                     mRecyclerView.setLayoutManager(mLinearLayoutManager);
-                } catch(Exception e){
+                } catch (Exception e) {
 
                 }
             }

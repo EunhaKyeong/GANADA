@@ -21,7 +21,7 @@ public class InfoActivity extends AppCompatActivity {
 
         //상태바 설정
         View view = getWindow().getDecorView();
-        if(view != null) {
+        if (view != null) {
             view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             getWindow().setStatusBarColor(Color.parseColor("#80FFF2CC"));
         }
