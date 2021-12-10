@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -12,22 +11,17 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.HashMap;
-
-public class MainActivity extends AppCompatActivity implements ExamParsingView {
+public class MainActivity extends AppCompatActivity {
 
     private TextView takePictureTv, vocaTv, settingTv;
     private View takePictureView, settingView, vocabularyView;
     private Dialog recognizeSelectDialog;
-    private ProgressDialog progressDialog;
     private String language;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        progressDialog = new ProgressDialog(this);
 
         //이미지/텍스트 촬영 클릭 리스너 -> 물체 인식인지 텍스트 인식인지 클릭하는 다이얼로그 띄우기
         takePictureView = (View) findViewById(R.id.take_picture_view);
@@ -187,38 +181,15 @@ public class MainActivity extends AppCompatActivity implements ExamParsingView {
         startActivity(new Intent(this, VocaBookActivity.class));
     }
 
-    void startLearnWord(Uri uri, String recognizedText) {
-        onParsingLoading();
-
-        HashMap recogHm = new HashMap();
-        recogHm.put("uri", uri);
-        recogHm.put("recognizedText", recognizedText);
-
-        ExampleParsingService service = new ExampleParsingService();
-        service.setExamParsingView(this);
-        service.getExample(recogHm);
-    }
-
-    @Override
-    public void onParsingLoading() {
-        //로딩창을 투명하게
-        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        progressDialog.show();
-    }
-
-    @Override
-    public void onParsingSuccess(HashMap hm) {
+    void startLearnWord(Uri uri, Caption caption) {
         Intent intent = new Intent(this, LearnWordActivity.class);
-        intent.putExtra("uri", hm.get("uri").toString()); //intent에 사진 uri 전달
-        intent.putExtra("recognizedText", hm.get("recognizedText").toString());
-        intent.putExtra("exam", hm.get("exam").toString());
+        intent.putExtra("uri", uri.toString()); //intent에 사진 uri 전달
+        if (caption.getKind().equals("-1"))
+            intent.putExtra("recognizedText", "");
+        else
+            intent.putExtra("recognizedText", caption.getKind());
+        intent.putExtra("exam", caption.getMessage());
+
         startActivity(intent);  //인텐트 실행
-
-        progressDialog.dismiss();
-    }
-
-    @Override
-    public void onParsingFail() {
-
     }
 }
