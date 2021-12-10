@@ -1,11 +1,10 @@
 package com.pProject.ganada;
 
+import android.net.Uri;
 import android.util.Log;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
-import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -15,10 +14,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ExampleParsingService {
 
-    private ExamParsingView examParsingView;
+    private CaptionView captionView;
 
-    void setExamParsingView(ExamParsingView examParsingView) {
-        this.examParsingView = examParsingView;
+    void setCaptionView(CaptionView captionView) {
+        this.captionView = captionView;
     }
 
     Retrofit retrofit = new Retrofit.Builder()
@@ -28,8 +27,8 @@ public class ExampleParsingService {
 
     ExampleParsingRetrofitInterface service = retrofit.create(ExampleParsingRetrofitInterface.class);
 
-    void getExample(HashMap hm) {
-        String word = hm.get("recognizedText").toString();
+    void getExample(Uri uri, Caption caption) {
+        String word = caption.getKind();
 
         service.getExample(word).enqueue(new Callback<JsonObject>() {
             @Override
@@ -38,10 +37,10 @@ public class ExampleParsingService {
                 JsonObject wordInfoResult = jsonObject.getAsJsonObject("channel");  // key가 wordInfoResult인 value를 추출하기 위해서 get()을 사용
                 JsonArray wordInfo = wordInfoResult.getAsJsonArray("item"); // key와  value안에 또다시 JSON이 존재 -> Array 형태
                 String exam = wordInfo.get(0).getAsJsonObject().get("example").toString();  // 그렇게 얻은 데이터에서 마지막으로 key가 wordInfo인 value를 JSONObject에 다시 넣어주기
-                exam = exam.replaceAll("\\\"","");  //큰따옴표 제거
-                hm.put("exam", exam);
+                exam = exam.replaceAll("\\\"", "");  //큰따옴표 제거
+                caption.setMessage(exam);
 
-                examParsingView.onParsingSuccess(hm);
+                captionView.onCaptionSuccess(uri, caption);
             }
 
             @Override
