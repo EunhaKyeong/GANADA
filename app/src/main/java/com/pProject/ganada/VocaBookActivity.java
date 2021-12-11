@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ public class VocaBookActivity extends AppCompatActivity {
     private Context mContext = null;
     private VocaAdapter vocaAdapter;
     private RecyclerView mRecyclerView;
+    private SwipeRefreshLayout mysrl;
 
     private TextView voca_note_foreign;
     private String language;
@@ -39,6 +41,8 @@ public class VocaBookActivity extends AppCompatActivity {
 
         vocaList = new ArrayList<>();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+
+        mysrl = findViewById(R.id.refresh_layout);
 
         //툴바 설정
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -81,6 +85,17 @@ public class VocaBookActivity extends AppCompatActivity {
         InsertRunnable insertRunnable = new InsertRunnable();
         Thread t = new Thread(insertRunnable);
         t.start();
+
+        mysrl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                InsertRunnable insertRunnable = new InsertRunnable();
+                Thread t = new Thread(insertRunnable);
+                t.start();
+
+                mysrl.setRefreshing(false);
+            }
+        });
     }
 
     //선택된 언어에 맞춰 TextView 의 텍스트를 설정하는 함수
