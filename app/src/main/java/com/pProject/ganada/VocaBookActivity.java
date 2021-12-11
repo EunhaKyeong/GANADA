@@ -2,20 +2,14 @@ package com.pProject.ganada;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
-import androidx.loader.content.AsyncTaskLoader;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -79,7 +73,7 @@ public class VocaBookActivity extends AppCompatActivity {
                     mRecyclerView.setAdapter(vocaAdapter);
                     LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false);
                     mRecyclerView.setLayoutManager(mLinearLayoutManager);
-                } catch(Exception e){
+                } catch (Exception e) {
 
                 }
             }

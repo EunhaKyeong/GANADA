@@ -38,7 +38,7 @@ public class ChangeLanguageActivity extends AppCompatActivity {
 
         //상태바 설정
         View view = getWindow().getDecorView();
-        if(view != null) {
+        if (view != null) {
             view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             getWindow().setStatusBarColor(Color.parseColor("#FFF2CC"));
         }
@@ -164,7 +164,7 @@ public class ChangeLanguageActivity extends AppCompatActivity {
 
     //SharedPreferences 에 선택한 언어 저장하는 함수
     private void saveLanguage(String language) {
-        if (language==null) {
+        if (language == null) {
             Toast.makeText(this, "언어를 선택해주세요.", Toast.LENGTH_SHORT).show();
         } else {
             SharedPreferences sp = getSharedPreferences("Language", MODE_PRIVATE);

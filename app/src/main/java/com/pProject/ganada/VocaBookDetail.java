@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
@@ -59,7 +58,7 @@ public class VocaBookDetail extends AppCompatActivity {
 
         //intent를 통해 id, word, ex_sentence, image uri를 전달 받음.
         Intent intent = getIntent();
-        int id = intent.getIntExtra("id",0);
+        int id = intent.getIntExtra("id", 0);
         String word = intent.getStringExtra("word");
         String ex_sentence = intent.getStringExtra("ex_sentence");
         Uri uri = Uri.parse(intent.getStringExtra("picture_uri"));
@@ -87,7 +86,6 @@ public class VocaBookDetail extends AppCompatActivity {
                 speakOut(ex_sentence_tv.getText().toString());
             }
         });
-
 
 
         //DB 생성
@@ -118,7 +116,7 @@ public class VocaBookDetail extends AppCompatActivity {
         btn_bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(btn_bookmark.isChecked()) {
+                if (btn_bookmark.isChecked()) {
                     //insert DB
                     InsertRunnable insertRunnable = new InsertRunnable();
                     Thread addThread = new Thread(insertRunnable);

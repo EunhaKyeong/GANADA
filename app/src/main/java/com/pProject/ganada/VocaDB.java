@@ -10,6 +10,7 @@ import androidx.room.RoomDatabase;
 public abstract class VocaDB extends RoomDatabase {
 
     private static VocaDB INSTANCE;
+
     public abstract VocaDao vocaDao();
 
     public static VocaDB getInstance(Context context) {
@@ -20,6 +21,7 @@ public abstract class VocaDB extends RoomDatabase {
         }
         return INSTANCE;
     }
+
     public static void destroyInstance() {
         INSTANCE = null;
     }

@@ -4,6 +4,8 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.Manifest;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -13,6 +15,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +25,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.text.Text;
 import com.google.mlkit.vision.text.TextRecognition;
@@ -29,16 +32,18 @@ import com.google.mlkit.vision.text.TextRecognizer;
 import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
 
 import gun0912.tedimagepicker.builder.TedImagePicker;
 import gun0912.tedimagepicker.builder.listener.OnSelectedListener;
 
-public class BottomSheetDialogFragment extends com.google.android.material.bottomsheet.BottomSheetDialogFragment {
+public class BottomSheetDialogFragment extends com.google.android.material.bottomsheet.BottomSheetDialogFragment implements CaptionView {
 
     private String language, objectType;
     private TextView usingCameraOtherLanguageTv, usingGalleryOtherLanguageTv;
     private View usingCameraView, usingGalleryView;
+    private CaptionService captionService;
+    private ExampleParsingService exampleParsingService;
+    private ProgressDialog progressDialog;
 
     public BottomSheetDialogFragment(String objectType) {
         this.objectType = objectType;
@@ -64,6 +69,12 @@ public class BottomSheetDialogFragment extends com.google.android.material.botto
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        captionService = new CaptionService();
+        captionService.setCaptionView(this);
+
+        exampleParsingService = new ExampleParsingService();
+        exampleParsingService.setCaptionView(this);
 
     }
 
@@ -143,11 +154,13 @@ public class BottomSheetDialogFragment extends com.google.android.material.botto
         TedImagePicker.with(requireContext()).start(new OnSelectedListener() {
             @Override
             public void onSelected(Uri uri) {
+                onCaptionLoading();
+
                 if (objectType == "text") //텍스트 인식이면
                     extractText(uri);   //ML Kit 를 활용해 이미지 속에 있는 텍스트를 인식해 추출하는 함수 호출.
                 else {  //사물 인식이면 바로 LearnWordActivity 로 이동
-                    ((MainActivity) requireActivity()).startLearnWord(uri, "");
-                    dismiss();
+                    Uri realPath = Uri.parse(getRealPathFromURI(uri));
+                    captionService.getGalleryCaption(realPath);
                 }
             }
         });
@@ -165,7 +178,9 @@ public class BottomSheetDialogFragment extends com.google.android.material.botto
                     .addOnSuccessListener(new OnSuccessListener<Text>() {
                         @Override
                         public void onSuccess(Text visionText) {
-                            ((MainActivity) requireActivity()).startLearnWord(uri, visionText.getText());
+                            Caption caption = new Caption();
+                            caption.setKind(visionText.getText());
+                            exampleParsingService.getExample(uri, caption);
                         }
                     })
                     .addOnFailureListener(
@@ -179,4 +194,36 @@ public class BottomSheetDialogFragment extends com.google.android.material.botto
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void onCaptionLoading() {
+        progressDialog = new ProgressDialog(requireContext());
+        //로딩창을 투명하게
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        progressDialog.show();
+    }
+
+    @Override
+    public void onCaptionSuccess(Uri uri, Caption caption) {
+        ((MainActivity) requireActivity()).startLearnWord(uri, caption);
+        progressDialog.dismiss();
+        dismiss();
+    }
+
+    private String getRealPathFromURI(Uri uri) {
+        String[] projection = {MediaStore.Images.Media.DATA};
+        String realPath = null;
+
+        try (Cursor cursor = requireContext().getContentResolver().query(uri, projection, null, null, null)) {
+            if (cursor != null && cursor.moveToFirst()) {
+                int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                realPath = cursor.getString(columnIndex);
+            }
+        } catch (Exception e) {
+            Log.e("on getPath", "Exception", e);
+        }
+
+        return realPath;
+    }
+
 }

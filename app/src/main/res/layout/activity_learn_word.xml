@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".LearnWordActivity">
 
     <ImageButton
@@ -21,13 +21,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
+        android:text="고양이"
         android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:text="고양이"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/btn_word_pronunciation"
@@ -35,9 +35,9 @@
         android:layout_height="28dp"
         android:layout_marginStart="5dp"
         android:background="@drawable/ic_sound2"
+        app:layout_constraintBottom_toBottomOf="@+id/word"
         app:layout_constraintStart_toEndOf="@+id/word"
-        app:layout_constraintTop_toTopOf="@+id/word"
-        app:layout_constraintBottom_toBottomOf="@+id/word"/>
+        app:layout_constraintTop_toTopOf="@+id/word" />
 
     <CheckBox
         android:id="@+id/btn_bookmark"
@@ -47,7 +47,7 @@
         android:background="@drawable/btn_bookmark"
         android:button="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/word"/>
+        app:layout_constraintTop_toTopOf="@+id/word" />
 
     <ImageView
         android:id="@+id/word_pic"
@@ -63,14 +63,14 @@
         android:id="@+id/ex_sentence"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
         android:maxWidth="280dp"
         android:maxHeight="60dp"
-        android:layout_marginTop="22dp"
-        android:textColor="@color/black"
+        android:text="고양이가 웃고 있습니다"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="22sp"
         android:textStyle="bold"
-        android:text="고양이가 웃고 있습니다"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/word_pic" />
@@ -81,9 +81,9 @@
         android:layout_height="24dp"
         android:layout_marginStart="6dp"
         android:background="@drawable/ic_sound2"
+        app:layout_constraintBottom_toBottomOf="@+id/ex_sentence"
         app:layout_constraintStart_toEndOf="@+id/ex_sentence"
-        app:layout_constraintTop_toTopOf="@+id/ex_sentence"
-        app:layout_constraintBottom_toBottomOf="@+id/ex_sentence"/>
+        app:layout_constraintTop_toTopOf="@+id/ex_sentence" />
 
     <View
         android:id="@+id/practice_view"
@@ -114,9 +114,9 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/practice_icon"
         app:layout_constraintEnd_toEndOf="@+id/practice_view"
-        app:layout_constraintStart_toStartOf="@+id/practice_view" />
+        app:layout_constraintStart_toStartOf="@+id/practice_view"
+        app:layout_constraintTop_toBottomOf="@+id/practice_icon" />
 
     <TextView
         android:id="@+id/practice_foreign"
@@ -127,8 +127,8 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/practice_kr"
         app:layout_constraintEnd_toEndOf="@+id/practice_view"
-        app:layout_constraintStart_toStartOf="@+id/practice_view" />
+        app:layout_constraintStart_toStartOf="@+id/practice_view"
+        app:layout_constraintTop_toBottomOf="@+id/practice_kr" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

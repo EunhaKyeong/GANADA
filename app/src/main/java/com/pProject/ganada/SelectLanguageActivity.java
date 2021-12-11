@@ -120,7 +120,7 @@ public class SelectLanguageActivity extends AppCompatActivity {
 
     //SharedPreferences 에 선택한 언어 저장하는 함수
     private void saveLanguage(String language) {
-        if (language==null) {
+        if (language == null) {
             Toast.makeText(this, "언어를 선택해주세요.", Toast.LENGTH_SHORT).show();
         } else {
             SharedPreferences sp = getSharedPreferences("Language", MODE_PRIVATE);
