@@ -130,20 +130,46 @@ public class VocaBookDetail extends AppCompatActivity {
                     Thread addThread = new Thread(insertRunnable);
                     addThread.start();
 
-                    Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.save_word_en), Toast.LENGTH_SHORT);
+                    switch (language) {
+                        case "english":
+                            Toast.makeText(getApplicationContext(), getString(R.string.save_word_en), Toast.LENGTH_SHORT).show();
+                            break;
+                        case "china":
+                            Toast.makeText(getApplicationContext(), getString(R.string.save_word_cn), Toast.LENGTH_SHORT).show();
+                            break;
+                        case "vietnam":
+                            Toast.makeText(getApplicationContext(), getString(R.string.save_word_vn), Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(getApplicationContext(), getString(R.string.save_word_jp), Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+
                     /*TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
                     if(v != null) v.setGravity(Gravity.CENTER);*/
-                    toast.show();
                 } else {
                     //delete DB
                     DeleteRunnable deleteRunnable = new DeleteRunnable();
                     Thread deleteThread = new Thread(deleteRunnable);
                     deleteThread.start();
 
-                    Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.delete_word_en), Toast.LENGTH_SHORT);
+                    switch (language) {
+                        case "english":
+                            Toast.makeText(getApplicationContext(), getString(R.string.delete_word_en), Toast.LENGTH_SHORT).show();
+                            break;
+                        case "china":
+                            Toast.makeText(getApplicationContext(), getString(R.string.delete_word_cn), Toast.LENGTH_SHORT).show();
+                            break;
+                        case "vietnam":
+                            Toast.makeText(getApplicationContext(), getString(R.string.delete_word_vn), Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(getApplicationContext(), getString(R.string.delete_word_jp), Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+
                     /*TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
                     if(v != null) v.setGravity(Gravity.CENTER);*/
-                    toast.show();
                 }
             }
         });

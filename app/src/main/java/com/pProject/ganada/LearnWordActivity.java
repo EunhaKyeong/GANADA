@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
@@ -72,7 +73,8 @@ public class LearnWordActivity extends AppCompatActivity {
 
         //전달 받은 exam 로 UI 바인딩
         example_sentence = (TextView) findViewById(R.id.ex_sentence);
-        example_sentence.setText(emphasizeWord(exam, text));
+        exam = emphasizeWord(exam, text);
+        example_sentence.setText(exam);
 
         //단어 스피커 이미지버튼 클릭 리스너
         btn_word_pronunciation = (ImageButton) findViewById(R.id.btn_word_pronunciation);
@@ -132,20 +134,45 @@ public class LearnWordActivity extends AppCompatActivity {
                     Thread addThread = new Thread(insertRunnable);
                     addThread.start();
 
-                    Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.save_word_en), Toast.LENGTH_SHORT);
+                    switch (language) {
+                        case "english":
+                            Toast.makeText(getApplicationContext(), getString(R.string.save_word_en), Toast.LENGTH_SHORT).show();
+                            break;
+                        case "china":
+                            Toast.makeText(getApplicationContext(), getString(R.string.save_word_cn), Toast.LENGTH_SHORT).show();
+                            break;
+                        case "vietnam":
+                            Toast.makeText(getApplicationContext(), getString(R.string.save_word_vn), Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(getApplicationContext(), getString(R.string.save_word_jp), Toast.LENGTH_SHORT).show();
+                            break;
+                    }
                     /*TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
                     if(v != null) v.setGravity(Gravity.CENTER);*/
-                    toast.show();
                 } else {
                     //delete DB
                     DeleteRunnable deleteRunnable = new DeleteRunnable();
                     Thread deleteThread = new Thread(deleteRunnable);
                     deleteThread.start();
 
-                    Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.delete_word_en), Toast.LENGTH_SHORT);
+                    switch (language) {
+                        case "english":
+                            Toast.makeText(getApplicationContext(), getString(R.string.delete_word_en), Toast.LENGTH_SHORT).show();
+                            break;
+                        case "china":
+                            Toast.makeText(getApplicationContext(), getString(R.string.delete_word_cn), Toast.LENGTH_SHORT).show();
+                            break;
+                        case "vietnam":
+                            Toast.makeText(getApplicationContext(), getString(R.string.delete_word_vn), Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(getApplicationContext(), getString(R.string.delete_word_jp), Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+
                     /*TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
                     if(v != null) v.setGravity(Gravity.CENTER);*/
-                    toast.show();
                 }
             }
         });
@@ -242,6 +269,7 @@ public class LearnWordActivity extends AppCompatActivity {
 
     //예문에서 단어에 강조표시 하는 함수
     private String emphasizeWord(String example, String word) {
+        Log.d("LearnWordActivity", example + word);
         int idx = example.indexOf(word);
         String temp = example.substring(0, idx) + "\"" + word + "\"" + example.substring(idx + word.length());
 
