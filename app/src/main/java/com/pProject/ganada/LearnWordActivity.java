@@ -24,11 +24,11 @@ public class LearnWordActivity extends AppCompatActivity {
     private Context mContext;
 
     private TextToSpeech tts;
-    private TextView word, example_sentence, practice_foreign;
+    private TextView word, example_sentence, practice_foreign, exampleDescKrTv, exampleDescOtherLangTv;
     private ImageButton btn_back, btn_word_pronunciation, btn_sentence_pronunciation;
     private CheckBox btn_bookmark;
     private ImageView word_pic;
-    private String language;
+    private String language, type;
     private View practice_view;
 
     @Override
@@ -44,15 +44,18 @@ public class LearnWordActivity extends AppCompatActivity {
             }
         });
 
-        //sharedPreferences 에서 선택된 언어 가져오기
-        language = getSharedPreferences("Language", MODE_PRIVATE).getString("language", null);
-        setLanguageUI(language);    //선택된 언어에 맞춰 TextView 의 텍스트를 설정하는 함수 호출
-
-        //intent 를 통해 image Uri, 인식된 텍스트를 전달 받음.
+        //intent 를 통해 image Uri, 인식된 텍스트, 예문을 전달 받음.
         Intent intent = getIntent();
+        type = intent.getStringExtra("type");    //사물인식인지 텍스트인식인지 판단용
         Uri uri = Uri.parse(intent.getStringExtra("uri"));
         String text = intent.getStringExtra("recognizedText");
         String exam = intent.getStringExtra("exam");
+
+        exam = emphasizeWord(exam, text);
+
+        //sharedPreferences 에서 선택된 언어 가져오기
+        language = getSharedPreferences("Language", MODE_PRIVATE).getString("language", null);
+        setLanguageUI();    //선택된 언어에 맞춰 TextView 의 텍스트를 설정하는 함수 호출
 
         //전달 받은 텍스트로 UI 바인딩
         word = (TextView) findViewById(R.id.word);
@@ -61,6 +64,13 @@ public class LearnWordActivity extends AppCompatActivity {
         //전달 받은 uri 로 UI 바인딩
         word_pic = (ImageView) findViewById(R.id.word_pic);
         word_pic.setImageURI(uri);
+
+        //예문 설명 텍스트뷰 UI 바인딩
+        exampleDescKrTv = (TextView) findViewById(R.id.ex_sentence_desc_kr_tv);
+        if (type.equals("text"))
+            exampleDescKrTv.setText(R.string.explain_recog_sentence_kr);
+        else
+            exampleDescKrTv.setText(R.string.explain_ex_sentence_kr);
 
         //전달 받은 exam 로 UI 바인딩
         example_sentence = (TextView) findViewById(R.id.ex_sentence);
@@ -170,8 +180,14 @@ public class LearnWordActivity extends AppCompatActivity {
     }
 
     //선택된 언어에 맞춰 TextView 의 텍스트를 설정하는 함수
-    private void setLanguageUI(String language) {
+    private void setLanguageUI() {
         practice_foreign = (TextView) findViewById(R.id.practice_foreign);
+        exampleDescOtherLangTv = (TextView) findViewById(R.id.ex_sentence_desc_other_tv);
+
+        if (type.equals("text"))
+            setTextExDescTv();
+        else
+            setObjExDescTv();
 
         switch (language) {
             case "english":
@@ -187,6 +203,50 @@ public class LearnWordActivity extends AppCompatActivity {
                 practice_foreign.setText(R.string.practice_jp);
                 break;
         }
+    }
+
+    //사물 인식일 때 다국어 지원 텍스트뷰 UI 바인딩 함수
+    private void setObjExDescTv() {
+        switch (language) {
+            case "english":
+                exampleDescOtherLangTv.setText(R.string.explain_ex_sentence_en);
+                break;
+            case "china":
+                exampleDescOtherLangTv.setText(R.string.explain_ex_sentence_cn);
+                break;
+            case "vietnam":
+                exampleDescOtherLangTv.setText(R.string.explain_ex_sentence_vn);
+                break;
+            default:
+                exampleDescOtherLangTv.setText(R.string.explain_ex_sentence_jp);
+                break;
+        }
+    }
+
+    //텍스트 인식일 때 다국어 지원 텍스트뷰 UI 바인딩 함수
+    private void setTextExDescTv() {
+        switch (language) {
+            case "english":
+                exampleDescOtherLangTv.setText(R.string.explain_recog_sentence_en);
+                break;
+            case "china":
+                exampleDescOtherLangTv.setText(R.string.explain_recog_sentence_cn);
+                break;
+            case "vietnam":
+                exampleDescOtherLangTv.setText(R.string.explain_recog_sentence_vn);
+                break;
+            default:
+                exampleDescOtherLangTv.setText(R.string.explain_recog_sentence_jp);
+                break;
+        }
+    }
+
+    //예문에서 단어에 강조표시 하는 함수
+    private String emphasizeWord(String example, String word) {
+        int idx = example.indexOf(word);
+        example = example.substring(0, idx) + "\"" + word + "\"" + example.substring(idx + word.length());
+
+        return example;
     }
 
     //TTS 함수

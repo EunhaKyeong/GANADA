@@ -205,7 +205,7 @@ public class BottomSheetDialogFragment extends com.google.android.material.botto
 
     @Override
     public void onCaptionSuccess(Uri uri, Caption caption) {
-        ((MainActivity) requireActivity()).startLearnWord(uri, caption);
+        ((MainActivity) requireActivity()).startLearnWord(objectType, uri, caption);
         progressDialog.dismiss();
         dismiss();
     }
