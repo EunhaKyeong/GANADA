@@ -9,6 +9,10 @@ public class Voca {
     @PrimaryKey(autoGenerate = true)
     public int id;
 
+    //사물인식, 텍스트인식 타입
+    @ColumnInfo(name = "type")
+    public String type;
+
     @ColumnInfo(name = "word")
     public String word;
 
@@ -24,6 +28,14 @@ public class Voca {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getPicture_uri() {
@@ -52,6 +64,12 @@ public class Voca {
 
     @Override
     public String toString() {
-        return "picture_uri: " + picture_uri + "," + "word: " + this.word + "," + "ex_sentence: " + this.ex_sentence;
+        return "Voca{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", word='" + word + '\'' +
+                ", picture_uri='" + picture_uri + '\'' +
+                ", ex_sentence='" + ex_sentence + '\'' +
+                '}';
     }
 }
