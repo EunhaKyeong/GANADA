@@ -181,8 +181,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, VocaBookActivity.class));
     }
 
-    void startLearnWord(Uri uri, Caption caption) {
+    //LearnWordActivity 로 이동하는 함수
+    void startLearnWord(String type, Uri uri, Caption caption) {
         Intent intent = new Intent(this, LearnWordActivity.class);
+        intent.putExtra("type", type);  //사물인식인지 텍스트인식인지 확인을 위해 전달
         intent.putExtra("uri", uri.toString()); //intent에 사진 uri 전달
         if (caption.getKind().equals("-1"))
             intent.putExtra("recognizedText", "");

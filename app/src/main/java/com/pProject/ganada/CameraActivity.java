@@ -186,6 +186,7 @@ public class CameraActivity extends AppCompatActivity implements CaptionView {
     @Override
     public void onCaptionSuccess(Uri uri, Caption caption) {
         Intent intent = new Intent(this, LearnWordActivity.class);
+        intent.putExtra("type", objectType);  //사물인식인지 텍스트인식인지 확인을 위해 전달
         intent.putExtra("uri", uri.toString()); //intent에 사진 uri 전달
         if (caption.getKind().equals("-1"))
             intent.putExtra("recognizedText", "");

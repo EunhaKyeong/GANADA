@@ -96,4 +96,16 @@
     <string name="using_gallery_cn">(从相册导入)</string>
     <string name="using_gallery_vn">(nhập từ album ảnh)</string>
     <string name="using_gallery_jp">(フォトアルバムからインポート)</string>
+
+    <string name="explain_ex_sentence_kr">사진에 대한 설명입니다.</string>
+    <string name="explain_ex_sentence_en">(It is an explanation of the picture.)</string>
+    <string name="explain_ex_sentence_cn">(是关于照片的说明。)</string>
+    <string name="explain_ex_sentence_vn">(Mô tả về bức ảnh)</string>
+    <string name="explain_ex_sentence_jp">(写真の説明です。)</string>
+
+    <string name="explain_recog_sentence_kr">인식된 단어를 사용한 예문입니다.</string>
+    <string name="explain_recog_sentence_en">(An example sentence containing recognized words.)</string>
+    <string name="explain_recog_sentence_cn">(包含已识别的单词的例题文章。)</string>
+    <string name="explain_recog_sentence_vn">(Câu ví dụ bao gồm các từ được nhận thức.)</string>
+    <string name="explain_recog_sentence_jp">(認識された単語を含む例題文章です。)</string>
 </resources>

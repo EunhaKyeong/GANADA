@@ -60,20 +60,43 @@
         app:layout_constraintTop_toBottomOf="@+id/word" />
 
     <TextView
+        android:id="@+id/ex_sentence_desc_kr_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/explain_ex_sentence_kr"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/word_pic" />
+
+    <TextView
+        android:id="@+id/ex_sentence_desc_other_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/explain_ex_sentence_en"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ex_sentence_desc_kr_tv" />
+
+    <TextView
         android:id="@+id/ex_sentence"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="8dp"
         android:maxWidth="280dp"
         android:maxHeight="60dp"
         android:text="고양이가 웃고 있습니다"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="22sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/word_pic" />
+        app:layout_constraintTop_toBottomOf="@+id/ex_sentence_desc_other_tv" />
 
     <ImageButton
         android:id="@+id/btn_sentence_pronunciation"
@@ -87,9 +110,9 @@
 
     <View
         android:id="@+id/practice_view"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
-        android:layout_marginTop="26dp"
+        android:layout_width="180dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="28dp"
         android:background="@drawable/btn_shape"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -97,9 +120,9 @@
 
     <ImageView
         android:id="@+id/practice_icon"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:layout_marginTop="6dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="16dp"
         android:src="@drawable/ic_write"
         app:layout_constraintEnd_toEndOf="@+id/practice_view"
         app:layout_constraintStart_toStartOf="@+id/practice_view"
@@ -109,10 +132,10 @@
         android:id="@+id/practice_kr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="4dp"
         android:text="@string/practice_kr"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/practice_view"
         app:layout_constraintStart_toStartOf="@+id/practice_view"
@@ -122,10 +145,9 @@
         android:id="@+id/practice_foreign"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
         android:text="@string/practice_en"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/practice_view"
         app:layout_constraintStart_toStartOf="@+id/practice_view"
