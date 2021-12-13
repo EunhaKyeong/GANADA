@@ -46,12 +46,10 @@ public class LearnWordActivity extends AppCompatActivity {
 
         //intent 를 통해 image Uri, 인식된 텍스트, 예문을 전달 받음.
         Intent intent = getIntent();
-        type = intent.getStringExtra("type");    //사물인식인지 텍스트인식인지 판단용
+        type = intent.getStringExtra("type");    //사물인식인지 텍스트인식인지 판단용(object/text)
         Uri uri = Uri.parse(intent.getStringExtra("uri"));
         String text = intent.getStringExtra("recognizedText");
         String exam = intent.getStringExtra("exam");
-
-        exam = emphasizeWord(exam, text);
 
         //sharedPreferences 에서 선택된 언어 가져오기
         language = getSharedPreferences("Language", MODE_PRIVATE).getString("language", null);
@@ -74,7 +72,7 @@ public class LearnWordActivity extends AppCompatActivity {
 
         //전달 받은 exam 로 UI 바인딩
         example_sentence = (TextView) findViewById(R.id.ex_sentence);
-        example_sentence.setText(exam);
+        example_sentence.setText(emphasizeWord(exam, text));
 
         //단어 스피커 이미지버튼 클릭 리스너
         btn_word_pronunciation = (ImageButton) findViewById(R.id.btn_word_pronunciation);
@@ -107,6 +105,7 @@ public class LearnWordActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Voca voca = new Voca();
+                voca.type = type;   //type 추가
                 voca.word = word.getText().toString();
                 voca.ex_sentence = example_sentence.getText().toString();
                 voca.picture_uri = uri.toString();
@@ -244,9 +243,9 @@ public class LearnWordActivity extends AppCompatActivity {
     //예문에서 단어에 강조표시 하는 함수
     private String emphasizeWord(String example, String word) {
         int idx = example.indexOf(word);
-        example = example.substring(0, idx) + "\"" + word + "\"" + example.substring(idx + word.length());
+        String temp = example.substring(0, idx) + "\"" + word + "\"" + example.substring(idx + word.length());
 
-        return example;
+        return temp;
     }
 
     //TTS 함수

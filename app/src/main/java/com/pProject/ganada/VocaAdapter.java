@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,6 +60,7 @@ public class VocaAdapter extends RecyclerView.Adapter<VocaAdapter.ViewHolder> {
                 intent.putExtra("ex_sentence", voca.ex_sentence);
                 intent.putExtra("picture_uri", voca.picture_uri);
                 intent.putExtra("checked", true);
+                intent.putExtra("type", voca.getType());
                 mContext.startActivity(intent);
             }
         });
