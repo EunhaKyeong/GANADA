@@ -4,7 +4,7 @@
 
 
 ## 📑 스토리보드
-<p align="center"><img src="https://user-images.githubusercontent.com/66666533/146014157-02b88898-6880-46fe-8288-3072606ae254.png" width="500px"></p>  
+<p align="center"><img src="https://user-images.githubusercontent.com/66666533/146014157-02b88898-6880-46fe-8288-3072606ae254.png" width="800px"></p>  
 <br><br>
 
 ## 🎬 시연 영상
