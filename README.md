@@ -12,13 +12,13 @@
 <br><br>
 
 ## 🛠 사용 라이브러리
-## 1. CameraX
-## [2. TedImagePicker](https://github.com/ParkSangGwon/TedImagePicker)
-## 3. ml kit - text recognition
-## 4. Room
-## 5. Swiperefreshlayout
-## [6. Gson](https://github.com/google/gson)
-## [7. Retrofit](https://github.com/square/retrofit)
+### 1. CameraX
+### [2. TedImagePicker](https://github.com/ParkSangGwon/TedImagePicker)
+### 3. ml kit - text recognition
+### 4. Room
+### 5. Swiperefreshlayout
+### [6. Gson](https://github.com/google/gson)
+### [7. Retrofit](https://github.com/square/retrofit)
 <br><br>
 
 ## 📍 [아이콘 출처](https://github.com/EunhaKyeong/GANADA/tree/eunha/app/src/main/res/drawable)
