@@ -271,7 +271,14 @@ public class LearnWordActivity extends AppCompatActivity {
     private String emphasizeWord(String example, String word) {
         Log.d("LearnWordActivity", example + word);
         int idx = example.indexOf(word);
-        String temp = example.substring(0, idx) + "\"" + word + "\"" + example.substring(idx + word.length());
+        String temp;
+
+        try {
+            temp = example.substring(0, idx) + "\"" + word + "\"" + example.substring(idx + word.length());
+        } catch (Exception e) {
+            temp = example;
+        }
+
 
         return temp;
     }
