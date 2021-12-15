@@ -34,6 +34,10 @@
     - ic_text.png
     - ic_vocanote.png  
     - object_icon.png  
+    - ic_eraser.png  
+    - ic_information.png  
+    -  ic_sound2.png  
+    - ic_write.png
 
 <br>
 
@@ -64,6 +68,33 @@
 6. <div>Icons made by <a href="https://www.flaticon.com/authors/handicon" title="Handicon">Handicon</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
     - ic_close.png
+
+<br>
+
+7. https://www.wikitree.co.kr/articles/368319  
+
+    - cat_sample.jpg  
+
+<br>
+
+8. https://twitter.com/ugcfcc6ctcwv/status/1248858232153452544  
+
+    - dog_sample.jpg  
+
+<br>
+
+9. <div>Icons made by <a href="" title="designvector10">designvector10</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+
+    - ic_bookmark.png  
+    - ic_bookmarked.png  
+
+<br>
+
+10. <div>Icons made by <a href="https://www.flaticon.com/authors/anthony-ledoux" title="Anthony Ledoux">Anthony Ledoux</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>  
+
+    - ic_language.png  
+
+<br>
 
 
 
